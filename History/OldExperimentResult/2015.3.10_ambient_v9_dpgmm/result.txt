@@ -1,0 +1,20 @@
+c1, 762
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   25.590551181102363%, 195
+UsingNoteBook:   37.40157480314961%, 285
+UsingPC:   0.0%, 0
+Sleeping:   37.00787401574803%, 282
+Reading:   0.0%, 0
+
+
+c2, 933
+PlayingKinect:  30.22508038585209%, 282
+WatchingTV: 30.117899249732048%, 281
+Studying:   9.217577706323688%, 86
+UsingNoteBook:   0.0%, 0
+UsingPC:   30.439442658092176%, 284
+Sleeping:   0.0%, 0
+Reading:   0.0%, 0
+
+

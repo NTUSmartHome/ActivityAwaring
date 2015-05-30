@@ -1,0 +1,39 @@
+c1, 1035
+Sweep     : 0.68  %,		7
+WatchTV   : 35.46 %,		367
+Read      : 43.67 %,		452
+Sleep     : 0.0   %,		0
+WashDishes: 0.0   %,		0
+Circuit   : 0.0   %,		0
+Walk      : 0.29  %,		3
+Meal      : 0.0   %,		0
+PlayPad   : 19.9  %,		206
+Other     : 0.0   %,		0
+
+
+c2, 368
+Sweep     : 77.17 %,		284
+WatchTV   : 0.82  %,		3
+Read      : 9.78  %,		36
+Sleep     : 0.0   %,		0
+WashDishes: 0.0   %,		0
+Circuit   : 0.0   %,		0
+Walk      : 4.62  %,		17
+Meal      : 0.0   %,		0
+PlayPad   : 7.61  %,		28
+Other     : 0.0   %,		0
+
+
+c3, 347
+Sweep     : 15.27 %,		53
+WatchTV   : 0.29  %,		1
+Read      : 0.58  %,		2
+Sleep     : 0.0   %,		0
+WashDishes: 0.0   %,		0
+Circuit   : 0.0   %,		0
+Walk      : 83.86 %,		291
+Meal      : 0.0   %,		0
+PlayPad   : 0.0   %,		0
+Other     : 0.0   %,		0
+
+

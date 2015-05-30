@@ -1,0 +1,330 @@
+c1, 1750
+PlayingKinect:  50.171428571428564%, 878
+WatchingTV: 41.885714285714286%, 733
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   7.942857142857143%, 139
+
+
+c2, 666
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   100.0%, 666
+Reading:   0.0%, 0
+
+
+c3, 668
+PlayingKinect:  0.0%, 0
+WatchingTV: 100.0%, 668
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   0.0%, 0
+
+
+c4, 3685
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   29.38941655359566%, 1083
+UsingNoteBook:   70.61058344640433%, 2602
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   0.0%, 0
+
+
+c5, 4426
+PlayingKinect:  51.51378219611388%, 2280
+WatchingTV: 48.44103027564392%, 2144
+Studying:   0.022593764121102578%, 1
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   0.022593764121102578%, 1
+
+
+c6, 6714
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   55.510872803097996%, 3727
+UsingNoteBook:   44.489127196902%, 2987
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   0.0%, 0
+
+
+c7, 2931
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   100.0%, 2931
+Reading:   0.0%, 0
+
+
+c8, 1511
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.06618133686300463%, 1
+Sleeping:   99.933818663137%, 1510
+Reading:   0.0%, 0
+
+
+c9, 2712
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   100.0%, 2712
+Sleeping:   0.0%, 0
+Reading:   0.0%, 0
+
+
+c10, 4488
+PlayingKinect:  28.631907308377897%, 1285
+WatchingTV: 71.3680926916221%, 3203
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   0.0%, 0
+
+
+c11, 882
+PlayingKinect:  18.480725623582767%, 163
+WatchingTV: 81.40589569160997%, 718
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   0.11337868480725624%, 1
+
+
+c12, 1802
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.05549389567147614%, 1
+Studying:   39.45615982241954%, 711
+UsingNoteBook:   60.48834628190899%, 1090
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   0.0%, 0
+
+
+c13, 7
+PlayingKinect:  14.285714285714285%, 1
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   85.71428571428571%, 6
+
+
+c14, 2
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   100.0%, 2
+
+
+c15, 11
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   100.0%, 11
+
+
+c16, 2030
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   100.0%, 2030
+
+
+c17, 459
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   100.0%, 459
+Reading:   0.0%, 0
+
+
+c18, 402
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   100.0%, 402
+Sleeping:   0.0%, 0
+Reading:   0.0%, 0
+
+
+c19, 1059
+PlayingKinect:  44.19263456090651%, 468
+WatchingTV: 55.80736543909348%, 591
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   0.0%, 0
+
+
+c20, 874
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   100.0%, 874
+
+
+c21, 1588
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   100.0%, 1588
+Reading:   0.0%, 0
+
+
+c22, 2221
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   100.0%, 2221
+Sleeping:   0.0%, 0
+Reading:   0.0%, 0
+
+
+c23, 969
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   100.0%, 969
+Sleeping:   0.0%, 0
+Reading:   0.0%, 0
+
+
+c24, 2020
+PlayingKinect:  53.663366336633665%, 1084
+WatchingTV: 46.28712871287129%, 935
+Studying:   0.04950495049504951%, 1
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   0.0%, 0
+
+
+c25, 3
+PlayingKinect:  33.33333333333333%, 1
+WatchingTV: 33.33333333333333%, 1
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   33.33333333333333%, 1
+
+
+c26, 4082
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   49.11807937285644%, 2005
+UsingNoteBook:   50.881920627143565%, 2077
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   0.0%, 0
+
+
+c27, 872
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   100.0%, 872
+
+
+c28, 1706
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   53.16529894490035%, 907
+UsingNoteBook:   46.83470105509965%, 799
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   0.0%, 0
+
+
+c29, 2549
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.1961553550411926%, 5
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   99.8038446449588%, 2544
+
+
+c30, 235
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   100.0%, 235
+Sleeping:   0.0%, 0
+Reading:   0.0%, 0
+
+
+c31, 181
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   100.0%, 181
+Sleeping:   0.0%, 0
+Reading:   0.0%, 0
+
+
+c32, 49
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   100.0%, 49
+Reading:   0.0%, 0
+
+
+c33, 529
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   100.0%, 529
+Sleeping:   0.0%, 0
+Reading:   0.0%, 0
+
+

@@ -1,0 +1,104 @@
+c1, 3
+Sweep     : 100.0 %,		3
+WatchTV   : 0.0   %,		0
+Read      : 0.0   %,		0
+Sleep     : 0.0   %,		0
+WashDishes: 0.0   %,		0
+Circuit   : 0.0   %,		0
+Walk      : 0.0   %,		0
+Meal      : 0.0   %,		0
+PlayPad   : 0.0   %,		0
+Other     : 0.0   %,		0
+
+
+c2, 1
+Sweep     : 0.0   %,		0
+WatchTV   : 0.0   %,		0
+Read      : 0.0   %,		0
+Sleep     : 0.0   %,		0
+WashDishes: 0.0   %,		0
+Circuit   : 0.0   %,		0
+Walk      : 100.0 %,		1
+Meal      : 0.0   %,		0
+PlayPad   : 0.0   %,		0
+Other     : 0.0   %,		0
+
+
+c3, 2
+Sweep     : 50.0  %,		1
+WatchTV   : 0.0   %,		0
+Read      : 50.0  %,		1
+Sleep     : 0.0   %,		0
+WashDishes: 0.0   %,		0
+Circuit   : 0.0   %,		0
+Walk      : 0.0   %,		0
+Meal      : 0.0   %,		0
+PlayPad   : 0.0   %,		0
+Other     : 0.0   %,		0
+
+
+c4, 1
+Sweep     : 100.0 %,		1
+WatchTV   : 0.0   %,		0
+Read      : 0.0   %,		0
+Sleep     : 0.0   %,		0
+WashDishes: 0.0   %,		0
+Circuit   : 0.0   %,		0
+Walk      : 0.0   %,		0
+Meal      : 0.0   %,		0
+PlayPad   : 0.0   %,		0
+Other     : 0.0   %,		0
+
+
+c5, 37
+Sweep     : 0.0   %,		0
+WatchTV   : 45.95 %,		17
+Read      : 40.54 %,		15
+Sleep     : 0.0   %,		0
+WashDishes: 0.0   %,		0
+Circuit   : 0.0   %,		0
+Walk      : 0.0   %,		0
+Meal      : 0.0   %,		0
+PlayPad   : 13.51 %,		5
+Other     : 0.0   %,		0
+
+
+c6, 16
+Sweep     : 0.0   %,		0
+WatchTV   : 12.5  %,		2
+Read      : 50.0  %,		8
+Sleep     : 0.0   %,		0
+WashDishes: 0.0   %,		0
+Circuit   : 0.0   %,		0
+Walk      : 0.0   %,		0
+Meal      : 0.0   %,		0
+PlayPad   : 37.5  %,		6
+Other     : 0.0   %,		0
+
+
+c7, 9
+Sweep     : 100.0 %,		9
+WatchTV   : 0.0   %,		0
+Read      : 0.0   %,		0
+Sleep     : 0.0   %,		0
+WashDishes: 0.0   %,		0
+Circuit   : 0.0   %,		0
+Walk      : 0.0   %,		0
+Meal      : 0.0   %,		0
+PlayPad   : 0.0   %,		0
+Other     : 0.0   %,		0
+
+
+c8, 15
+Sweep     : 0.0   %,		0
+WatchTV   : 0.0   %,		0
+Read      : 0.0   %,		0
+Sleep     : 0.0   %,		0
+WashDishes: 0.0   %,		0
+Circuit   : 0.0   %,		0
+Walk      : 100.0 %,		15
+Meal      : 0.0   %,		0
+PlayPad   : 0.0   %,		0
+Other     : 0.0   %,		0
+
+

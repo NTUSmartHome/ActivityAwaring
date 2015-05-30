@@ -1,0 +1,81 @@
+c1, 207
+PlayingKinect:  100.0%, 207
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+
+
+c2, 75
+PlayingKinect:  100.0%, 75
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+
+
+c3, 163
+PlayingKinect:  0.0%, 0
+WatchingTV: 100.0%, 163
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+
+
+c4, 118
+PlayingKinect:  0.0%, 0
+WatchingTV: 100.0%, 118
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+
+
+c5, 470
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   49.361702127659576%, 232
+UsingNoteBook:   50.638297872340424%, 238
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+
+
+c6, 96
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   51.041666666666664%, 49
+UsingNoteBook:   48.95833333333333%, 47
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+
+
+c7, 284
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   100.0%, 284
+Sleeping:   0.0%, 0
+
+
+c8, 77
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   100.0%, 77
+
+
+c9, 205
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   100.0%, 205
+
+

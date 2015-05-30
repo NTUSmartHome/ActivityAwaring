@@ -1,0 +1,96 @@
+c1, 10
+COOK      : 0.0   %,		0
+MEAL      : 40.0  %,		4
+NA        : 0.0   %,		0
+NOTEBOOK  : 0.0   %,		0
+READ      : 60.0  %,		6
+SLEEP     : 0.0   %,		0
+STUDY     : 0.0   %,		0
+SWEEP     : 0.0   %,		0
+TV        : 0.0   %,		0
+
+
+c2, 11
+COOK      : 0.0   %,		0
+MEAL      : 54.55 %,		6
+NA        : 9.09  %,		1
+NOTEBOOK  : 0.0   %,		0
+READ      : 9.09  %,		1
+SLEEP     : 0.0   %,		0
+STUDY     : 9.09  %,		1
+SWEEP     : 0.0   %,		0
+TV        : 18.18 %,		2
+
+
+c3, 9
+COOK      : 0.0   %,		0
+MEAL      : 44.44 %,		4
+NA        : 0.0   %,		0
+NOTEBOOK  : 0.0   %,		0
+READ      : 0.0   %,		0
+SLEEP     : 0.0   %,		0
+STUDY     : 22.22 %,		2
+SWEEP     : 0.0   %,		0
+TV        : 33.33 %,		3
+
+
+c4, 16
+COOK      : 0.0   %,		0
+MEAL      : 0.0   %,		0
+NA        : 25.0  %,		4
+NOTEBOOK  : 0.0   %,		0
+READ      : 0.0   %,		0
+SLEEP     : 0.0   %,		0
+STUDY     : 68.75 %,		11
+SWEEP     : 0.0   %,		0
+TV        : 6.25  %,		1
+
+
+c5, 11
+COOK      : 0.0   %,		0
+MEAL      : 0.0   %,		0
+NA        : 9.09  %,		1
+NOTEBOOK  : 0.0   %,		0
+READ      : 54.55 %,		6
+SLEEP     : 27.27 %,		3
+STUDY     : 0.0   %,		0
+SWEEP     : 0.0   %,		0
+TV        : 9.09  %,		1
+
+
+c6, 26
+COOK      : 0.0   %,		0
+MEAL      : 3.85  %,		1
+NA        : 3.85  %,		1
+NOTEBOOK  : 0.0   %,		0
+READ      : 0.0   %,		0
+SLEEP     : 46.15 %,		12
+STUDY     : 11.54 %,		3
+SWEEP     : 0.0   %,		0
+TV        : 34.62 %,		9
+
+
+c7, 13
+COOK      : 0.0   %,		0
+MEAL      : 15.38 %,		2
+NA        : 0.0   %,		0
+NOTEBOOK  : 0.0   %,		0
+READ      : 0.0   %,		0
+SLEEP     : 0.0   %,		0
+STUDY     : 0.0   %,		0
+SWEEP     : 84.62 %,		11
+TV        : 0.0   %,		0
+
+
+c8, 1
+COOK      : 0.0   %,		0
+MEAL      : 0.0   %,		0
+NA        : 0.0   %,		0
+NOTEBOOK  : 0.0   %,		0
+READ      : 0.0   %,		0
+SLEEP     : 0.0   %,		0
+STUDY     : 100.0 %,		1
+SWEEP     : 0.0   %,		0
+TV        : 0.0   %,		0
+
+

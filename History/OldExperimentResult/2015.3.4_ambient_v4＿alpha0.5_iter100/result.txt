@@ -1,0 +1,60 @@
+c1, 558
+PlayingKinect:  50.179211469534046%, 280
+WatchingTV: 49.82078853046595%, 278
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   0.0%, 0
+
+
+c2, 5
+PlayingKinect:  40.0%, 2
+WatchingTV: 60.0%, 3
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   0.0%, 0
+
+
+c3, 566
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   49.64664310954063%, 281
+UsingNoteBook:   50.35335689045937%, 285
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   0.0%, 0
+
+
+c4, 283
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   100.0%, 283
+Sleeping:   0.0%, 0
+Reading:   0.0%, 0
+
+
+c5, 9
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   11.11111111111111%, 1
+Sleeping:   88.88888888888889%, 8
+Reading:   0.0%, 0
+
+
+c6, 274
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   100.0%, 274
+Reading:   0.0%, 0
+
+

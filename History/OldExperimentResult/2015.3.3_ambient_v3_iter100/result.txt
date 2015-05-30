@@ -1,0 +1,110 @@
+c1, 5
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   100.0%, 5
+
+
+c2, 3440
+PlayingKinect:  88.48837209302326%, 3044
+WatchingTV: 11.511627906976745%, 396
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   0.0%, 0
+
+
+c3, 7203
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   100.0%, 7203
+Reading:   0.0%, 0
+
+
+c4, 28
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   53.57142857142857%, 15
+UsingNoteBook:   46.42857142857143%, 13
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   0.0%, 0
+
+
+c5, 17962
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   46.87673978398842%, 8420
+UsingNoteBook:   53.12326021601158%, 9542
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   0.0%, 0
+
+
+c6, 8330
+PlayingKinect:  37.370948379351745%, 3113
+WatchingTV: 62.629051620648255%, 5217
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   0.0%, 0
+
+
+c7, 3363
+PlayingKinect:  0.0%, 0
+WatchingTV: 100.0%, 3363
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   0.0%, 0
+
+
+c8, 38
+PlayingKinect:  7.894736842105263%, 3
+WatchingTV: 60.526315789473685%, 23
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   31.57894736842105%, 12
+
+
+c9, 6464
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   0.0%, 0
+Sleeping:   0.0%, 0
+Reading:   100.0%, 6464
+
+
+c10, 6721
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   100.0%, 6721
+Sleeping:   0.0%, 0
+Reading:   0.0%, 0
+
+
+c11, 529
+PlayingKinect:  0.0%, 0
+WatchingTV: 0.0%, 0
+Studying:   0.0%, 0
+UsingNoteBook:   0.0%, 0
+UsingPC:   100.0%, 529
+Sleeping:   0.0%, 0
+Reading:   0.0%, 0
+
+
