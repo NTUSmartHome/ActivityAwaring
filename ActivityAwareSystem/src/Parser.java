@@ -28,12 +28,12 @@ import elements.FileFormat;
 public class Parser {
 	
 	public static void main(String args[]) {
-		boolean TrainLowLevelACT = false;
+		boolean TrainLowLevelACT = true;
 		boolean PCA = false;
 		boolean TrainHighLevelACT = true;
-		boolean TrainAmbient = false;
-		boolean TrainWA = false;
-		boolean Online = true;
+		boolean TrainAmbient = true;
+		boolean TrainWA = true;
+		boolean Online = false;
 		String Path = "5.20.MingJe_OnlineTset";
 		int timewindow = 60;
 		int overlap = 55;
