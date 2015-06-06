@@ -30,6 +30,7 @@ import java.io.Serializable;
  * @author Vasilis Vryniotis <bbriniotis at datumbox.com>
  */
 public interface BigDataStructureContainerHolder extends Serializable {
+	public void setModelnameForTrainable(String Modelname);
     public void save(boolean callPresave);
     public void load();
     public void reinitialize();

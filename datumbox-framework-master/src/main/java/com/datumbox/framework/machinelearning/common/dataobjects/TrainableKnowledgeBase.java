@@ -23,7 +23,9 @@ import com.datumbox.common.persistentstorage.factories.BigDataStructureFactory;
 import com.datumbox.common.persistentstorage.interfaces.BigDataStructureContainer;
 import com.datumbox.common.persistentstorage.interfaces.BigDataStructureContainerHolder;
 import com.datumbox.configuration.MemoryConfiguration;
+
 import java.lang.reflect.InvocationTargetException;
+
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -145,24 +147,17 @@ public class TrainableKnowledgeBase<MP extends Learnable, TP extends Parameteriz
         this.ownerClass = ownerClass;
     }    
 
+    String Modelname = "";
+    public void setModelnameForTrainable(String name){
+    		Modelname = name;
+    }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
     @Override
     public void save(boolean callPresave) {
         if(modelParameters==null) {
             throw new IllegalArgumentException("Can not store an empty KnowledgeBase.");
         }
-        
         if(BigDataStructureContainer.class.isAssignableFrom(modelParameters.getClass())) {
             //do preSave
             if(callPresave) {
@@ -173,6 +168,7 @@ public class TrainableKnowledgeBase<MP extends Learnable, TP extends Parameteriz
                 bdsf.preSave((BigDataStructureContainer) modelParameters, memoryConfiguration);
             }
         }
+        bdsf.setModelname(Modelname);
         
         bdsf.save(this);
         bdsf.cleanUp();
@@ -191,6 +187,7 @@ public class TrainableKnowledgeBase<MP extends Learnable, TP extends Parameteriz
             //constructor. As a result it does not have an initialized bdsf object.
             //We don't care for that though because this instance has a valid bdsf object
             //and the kbObject is only used to copy its values (we don't use it).
+        		bdsf.setModelname(Modelname);
             TrainableKnowledgeBase kbObject = bdsf.load(this.getClass());
             if(kbObject==null) {
                 throw new IllegalArgumentException("The KnowledgeBase could not be loaded.");
@@ -295,6 +292,7 @@ public class TrainableKnowledgeBase<MP extends Learnable, TP extends Parameteriz
     public void setModelParameters(MP modelParameters) {
         this.modelParameters = modelParameters;
     }
+
     
     
 }

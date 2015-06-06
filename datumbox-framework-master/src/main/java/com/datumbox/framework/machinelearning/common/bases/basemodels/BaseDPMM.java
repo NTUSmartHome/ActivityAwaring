@@ -283,17 +283,18 @@ public abstract class BaseDPMM<CL extends BaseDPMM.Cluster, MP extends BaseDPMM.
 	        boolean noChangeMade=false;
 	        int iteration=0;
 	        while(iteration<maxIterations && noChangeMade==false) {
-	            
+	            /*
 	            if(GeneralConfiguration.DEBUG) {
 	                System.out.println("Iteration "+iteration);
 	            }
-	            
+	            */
 	            noChangeMade=true;
 	            for(Record r : dataset) {
 	                Integer pointClusterId = (Integer) r.getYPredicted();
 	                CL ci = tempClusterMap.get(pointClusterId);
+	                /*
 	                System.out.println("Iteration "+iteration+": "+pointClusterId);
-	                
+	                */
 	                //remove the point from the cluster
 	                ci.remove(r);
 	                
@@ -391,6 +392,7 @@ public abstract class BaseDPMM<CL extends BaseDPMM.Cluster, MP extends BaseDPMM.
     @Override
     protected void predictDataset(Dataset newData) { 
         if(newData.isEmpty()) {
+        		System.out.println("Predict Model is empty!");
             return;
         }
         
@@ -407,7 +409,7 @@ public abstract class BaseDPMM<CL extends BaseDPMM.Cluster, MP extends BaseDPMM.
             }
             
             r.setYPredicted(getSelectedClusterFromScores(clusterScores));
-            
+            //System.out.println("Predict: "+r.getYPredicted()+"\tLabel: "+r.getY());
             Descriptives.normalizeExp(clusterScores);
             
             r.setYPredictedProbabilities(clusterScores);

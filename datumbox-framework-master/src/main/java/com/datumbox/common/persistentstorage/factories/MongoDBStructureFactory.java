@@ -35,6 +35,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
+
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collection;
@@ -45,6 +46,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+
 import org.apache.commons.collections4.map.LRUMap;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
@@ -619,6 +621,20 @@ public class MongoDBStructureFactory implements BigDataStructureFactory {
 
         return fields;
     }
+
+
+
+
+
+
+
+	@Override
+	public <H extends BigDataStructureContainerHolder> void setModelname(
+			String dataset) {
+		// TODO Auto-generated method stub
+		
+	}
+
     
     /**
      * Creates an object even if it has no default constructor.

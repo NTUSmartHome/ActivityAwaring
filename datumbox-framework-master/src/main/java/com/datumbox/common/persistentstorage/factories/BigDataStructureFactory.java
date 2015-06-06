@@ -20,6 +20,7 @@ import com.datumbox.common.persistentstorage.interfaces.BigDataStructureContaine
 import com.datumbox.common.persistentstorage.interfaces.BigDataStructureContainerHolder;
 import com.datumbox.configuration.MemoryConfiguration;
 import com.datumbox.configuration.StorageConfiguration;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.Map;
@@ -78,9 +79,12 @@ public interface BigDataStructureFactory {
 
     public void preSave(BigDataStructureContainer learnedParameters, MemoryConfiguration memoryConfiguration);
     
+    public <H extends BigDataStructureContainerHolder> void setModelname(String dataset);
+    
     public <H extends BigDataStructureContainerHolder> void save(H holderObject);
     
     public <H extends BigDataStructureContainerHolder> H load(Class<H> klass);
+    
     
     public void postLoad(BigDataStructureContainer learnedParameters, MemoryConfiguration memoryConfiguration);
     

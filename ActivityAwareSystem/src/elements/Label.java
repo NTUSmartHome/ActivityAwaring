@@ -16,6 +16,8 @@ public class Label {
 		LABEL.add("Read");
 		LABEL.add("Sleep");
 		LABEL.add("Other");
+		//LABEL.add("+1");
+		//LABEL.add("-1");
 		for(int i=0; i<LABEL.size(); i++) activeLabel.add(false);
 	}
 
@@ -38,7 +40,7 @@ public class Label {
 		String str = "";
 		for(int i=0; i<LABEL.size(); i++){
 			if(activeLabel.get(i)){
-				str += LABEL.get(i) + "\t";
+				str += LABEL.get(i) + "";
 			}
 		}
 		return str;

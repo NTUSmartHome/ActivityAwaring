@@ -58,12 +58,18 @@ public final class MLmodelKnowledgeBase<MP extends BaseMLmodel.ModelParameters, 
         this.vmClass = vmClass;
     }
     
+    String Modelname = "";
+    public void setModelname(String dataset){
+    		Modelname = dataset;
+    }
+    
     /**
      * Loads a BaseMLmodelKnowledgeBase
      */
     @Override
     public void load() {
         if(trainingParameters==null) {
+        		bdsf.setModelname(Modelname);
             MLmodelKnowledgeBase kbObject = bdsf.load(MLmodelKnowledgeBase.class);
             if(kbObject==null) {
                 throw new IllegalArgumentException("The KnowledgeBase could not be loaded.");

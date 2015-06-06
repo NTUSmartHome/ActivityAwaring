@@ -11,79 +11,35 @@ public class MergeAWFeature {
 	String Ambient;
 	String Path;
 	String Merge;
-	int Timewindow;
-	int Overlap;
-	public MergeAWFeature(String path, String wearableName, String ambientName, String mergeName, int timewindow, int overlap){
+	public MergeAWFeature(String path, String wearableName, String ambientName, String mergeName, int timewindow, int overlap, boolean seperate){
 		Path = path;
-		Wearable = wearableName;
+		Wearable = wearableName+"_Mean.txt";
 		Ambient = ambientName;
 		Merge = mergeName;
-		Timewindow = timewindow;
-		Overlap = overlap;
-		
 		printMergeFile();
 	}
+	
 	public void printMergeFile(){
+		
 		new File(Path).mkdirs();
 		new File(Path+"/Features").mkdirs();
 		try {
-			FileReader frW = new FileReader(Path+"/DPMM/"+Wearable);
-			FileReader frA = new FileReader(Path+"/DPMM/"+Ambient);
+			FileReader frW = new FileReader(Path+"/Features/"+Wearable);
+			FileReader frA = new FileReader(Path+"/Features/"+Ambient);
 			BufferedReader brW =  new BufferedReader(frW);
 			BufferedReader brA =  new BufferedReader(frA);
 			String readWearable = "";
+			String readAmbient = "";
 			
 			try {
-				FileWriter fw = new FileWriter(Path+"/Features/"+Merge);
-			
-			
-				Vector<Integer> Ambient = new Vector<Integer>();
-				int clusterNum = 0;
-				try {
-					for(int i=0; i<Timewindow; i++){
-						String[] tmp = brA.readLine().split("	");
-						Ambient.add(Integer.valueOf(tmp[1]));
-						if(Integer.valueOf(tmp[1])>clusterNum){
-							clusterNum = Integer.valueOf(tmp[1]);
-						}
-					}
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				FileWriter fw = new FileWriter(Path+"/Features/"+Merge);			
+				Vector<Vector<Integer>> Ambient = new Vector<Vector<Integer>>();
 				try {
 					while((readWearable = brW.readLine())!=null){
-						//String readAmbient = "";
-						int shift = Timewindow-Overlap;
-						for(int i=0; i<shift; i++){
-							String[] tmp = brA.readLine().split("	");
-							Ambient.add(Integer.valueOf(tmp[1]));
-							Ambient.remove(0);
-							if(Integer.valueOf(tmp[1])>clusterNum){
-								clusterNum = Integer.valueOf(tmp[1]);
-							}
-						}
-						int[] cluster = new int[clusterNum+1];
-						for(int i=0; i<Timewindow; i++){
-							cluster[Ambient.get(i)]++;
-						}
-						int maxId = -1;
-						int max = 0;
-						for(int i=0; i<cluster.length; i++){
-							if(cluster[i]>max){
-								max = cluster[i];
-								maxId = i;
-							}
-						}
-						fw.write(maxId+",");
-						String[] wearableStr = readWearable.split("	");
-						System.out.println(wearableStr[1]);
-						
-						fw.write(wearableStr[1]+","+wearableStr[0]+"\n");
-		
-						//int maxAmbient = 0;
-						
+						readAmbient = brA.readLine();
+						fw.write(readWearable+","+readAmbient+"\n");
 					}
+					
 					fw.flush();
 					fw.close();
 					brA.close();
@@ -104,10 +60,8 @@ public class MergeAWFeature {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-			
-
 	}
+	
 	
 	
 }

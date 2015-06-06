@@ -178,6 +178,13 @@ public abstract class BaseMLmodel<MP extends BaseMLmodel.ModelParameters, TP ext
         return modelValidator.kFoldCrossValidation(trainingData, k, dbName, this.getClass(), knowledgeBase.getTrainingParameters(), knowledgeBase.getMemoryConfiguration());
     }
      
+    
+    String Modelname = "";
+    public void setModelname(String dataset){
+    		Modelname = dataset;
+    }
+    
+    
     /**
      * Trains a model with the trainingData and validates it with the validationData.
      * 
@@ -185,7 +192,7 @@ public abstract class BaseMLmodel<MP extends BaseMLmodel.ModelParameters, TP ext
      * @param validationData
      */
     @SuppressWarnings("unchecked")
-    public void train(Dataset trainingData, Dataset validationData) {    
+    public void train(Dataset trainingData, Dataset validationData ) {    
         //Check if training can be performed
         if(!knowledgeBase.isConfigured()) {
             throw new RuntimeException("The training configuration is not set.");
@@ -218,8 +225,8 @@ public abstract class BaseMLmodel<MP extends BaseMLmodel.ModelParameters, TP ext
             knowledgeBase.setValidationMetrics(validationMetrics);
 
         }
-
-        
+         
+        /*
         //store database if not temporary model
         if(isTemporary()==false) {
             if(GeneralConfiguration.DEBUG) {
@@ -227,8 +234,15 @@ public abstract class BaseMLmodel<MP extends BaseMLmodel.ModelParameters, TP ext
             }
             knowledgeBase.save(true);
         }
+        */
+        System.out.println("Saving model: "+Modelname);
+        knowledgeBase.setModelnameForTrainable(Modelname);
+        knowledgeBase.save(true);
+        
         knowledgeBase.setTrained(true);
     }
+    
+    
     
     /**
      * Calculates the predictions for the newData and stores the predictions
@@ -241,10 +255,11 @@ public abstract class BaseMLmodel<MP extends BaseMLmodel.ModelParameters, TP ext
         if(GeneralConfiguration.DEBUG) {
             System.out.println("predict()");
         }
-        
+        knowledgeBase.setModelname(Modelname);
         knowledgeBase.load();
         
         predictDataset(newData);
+        
 
     }
     

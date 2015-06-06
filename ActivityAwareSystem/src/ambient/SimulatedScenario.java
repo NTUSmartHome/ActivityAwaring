@@ -88,7 +88,7 @@ public class SimulatedScenario {
 		try {
 			new File(Path).mkdirs();
 			new File(Path+"/Features").mkdirs();
-			fw = new FileWriter(Path+"/Features/"+"AmbientFeatures.txt");
+			fw = new FileWriter(Path+"/Features/"+"AmbientFeature.txt");
 			for(int i=0; i<Instances.size(); i++){
 				for(int j=0; j<Instances.get(i).size(); j++){
 					fw.write(Instances.get(i).get(j)+",");

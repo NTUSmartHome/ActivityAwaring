@@ -20,8 +20,10 @@ import com.datumbox.common.dataobjects.MatrixDataset;
 import com.datumbox.common.dataobjects.Record;
 import com.datumbox.framework.machinelearning.common.bases.basemodels.BaseDPMM;
 import com.datumbox.framework.statistics.distributions.ContinuousDistributions;
+
 import java.util.Collection;
 import java.util.Map;
+
 import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealVector;
 
@@ -267,6 +269,9 @@ public class MultinomialDPMM extends BaseDPMM<MultinomialDPMM.Cluster, Multinomi
     public MultinomialDPMM(String dbName) {
         super(dbName, MultinomialDPMM.ModelParameters.class, MultinomialDPMM.TrainingParameters.class, MultinomialDPMM.ValidationMetrics.class);
     }
+    
+    
+    
 
     @Override
     public String shortMethodName() {

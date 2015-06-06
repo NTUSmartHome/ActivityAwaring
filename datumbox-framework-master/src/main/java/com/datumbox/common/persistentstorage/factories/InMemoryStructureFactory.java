@@ -144,32 +144,43 @@ public class InMemoryStructureFactory implements BigDataStructureFactory {
 
     
     private final Path filepath;
+    private Path writepath;
     
-    public InMemoryStructureFactory(String database) {       
+    public InMemoryStructureFactory(String database) {  
+    		filepath = Paths.get(database);
         if(StorageConfiguration.InMemory.DB_ROOT_FOLDER.isEmpty()) {
-            filepath= FileSystems.getDefault().getPath(database); //write them to the default accessible path
+            //filepath= FileSystems.getDefault().getPath(database); //write them to the default accessible path
         }
         else {
-            filepath= Paths.get(StorageConfiguration.InMemory.DB_ROOT_FOLDER + File.separator + database);
+            //filepath= Paths.get(StorageConfiguration.InMemory.DB_ROOT_FOLDER + File.separator + database);
         }
     }
+    
 
     @Override
     public <H extends BigDataStructureContainerHolder> void save(H holderObject) {
         try { 
             Files.write(filepath, DeepCopy.serialize(holderObject));
+            //Files.write(writepath, DeepCopy.serialize(holderObject));
         } 
         catch (IOException ex) {
             throw new RuntimeException(ex);
         }
     }
 
+    public void setModelname(String name){
+    		//writepath = FileSystems.getDefault().getPath("/Users/rainbowbow/Documents/School/ThesisProgram/"+name);
+    		writepath = Paths.get(name);
+    }
+    
     @Override
     @SuppressWarnings("unchecked")
     public <H extends BigDataStructureContainerHolder> H load(Class<H> klass) {
         try { 
             //read the stored serialized object
             H holderObject = (H)DeepCopy.deserialize(Files.readAllBytes(filepath));
+        		
+        	 	//H holderObject = (H)DeepCopy.deserialize(Files.readAllBytes(writepath));
             return holderObject;
         } 
         catch (NoSuchFileException ex) {

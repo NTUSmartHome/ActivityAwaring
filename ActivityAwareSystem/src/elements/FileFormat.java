@@ -12,13 +12,23 @@ public class FileFormat {
 	String Feature;
 	String version;
 	String PCA;
+	String Name;
 	public FileFormat(String V){
 		version = V;
 	}
-	public FileFormat(){
+	public FileFormat(String V, String name){
+		version = V;
+		Name = name;
+		setAll();
 	}
 	
 	public String Path(){return version;}
+	public void setAll(){
+		Feature = Name + "Feature.txt";
+		Report = Name + "Report.txt";
+		Result = Name + "Result";
+		PCA = "PCA_" + Name + ".txt";
+	}
 	
 	public void setRawdata(String name){Rawdata = name;	}
 	public void setFeature(String name){Feature = name;	}
