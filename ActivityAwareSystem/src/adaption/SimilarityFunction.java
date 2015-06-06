@@ -41,17 +41,15 @@ public class SimilarityFunction {
 		
 	}
 	
-	public boolean reasoningUnseen(Object[] instance, String label){
+	public boolean reasoningUnseen(Object[] instance){
 		Vector<Double> Inst = new Vector<Double>();
 		for(int i=0;i<instance.length; i++){
-			//System.out.print(i+":"+(double)instance[i]+"\t");
 			Inst.add((double)instance[i]);
 		}
-		//System.out.println("");
 		int[] result = SimilarityFun(Inst);
-		//System.out.println("It's most similar case "+result[1]+",\tand Distance is "+result[2]);
+		System.out.println("Neareast Cluster Head is "+result[1]);
+		System.out.println("Distance is "+result[2]);
 		if(result[0]==0){
-			//System.out.println("\t It's too various to all known cases..");
 			return true;
 		}
 		return false;

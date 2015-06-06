@@ -16,7 +16,6 @@ import com.datumbox.common.utilities.RandomValue;
 import com.datumbox.configuration.MemoryConfiguration;
 import com.datumbox.framework.machinelearning.clustering.GaussianDPMM;
 import com.datumbox.framework.machinelearning.common.bases.basemodels.BaseDPMM;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 public class GDPMMTrainAuto {
 	String version;// = "5.20.MingJe";
@@ -27,7 +26,10 @@ public class GDPMMTrainAuto {
     double m1;
     //int alpha_words;
 	String filename;
+	String filenameMeanFeature;
 	String filenameProbability;
+	String filenameClusterMean;
+	String filenameKNNModel;
 	Dataset trainingData;
 	Dataset validationData;
 	Dataset unseenData = new Dataset();
@@ -43,16 +45,22 @@ public class GDPMMTrainAuto {
 	    ModelName = oFile;
 	    //alpha_words =aw;
 	    setFilepath(iFile,oFile);
-	    testPredict();
+	    predict();
     }
     private void setFilepath(String iFile, String oFile){
-	    	new File(version+"/DPMM").mkdirs();
-	    	trainingData = generateDatasetFeature(version+"/Features/"+iFile);
+    	new File(version+"/DPMM").mkdirs();
+    	trainingData = generateDatasetFeature(version+"/Features/"+iFile);
+    	
 		filename =  version+"/DPMM/"+oFile;
 		filenameProbability = version+"/DPMM/"+oFile+"_probability.txt";
+		filenameMeanFeature = version+"/Features/"+oFile+"_Mean.txt";
+		new File(version+"/Reasoning").mkdirs();
+		filenameClusterMean = version+"/Reasoning/Cluster_Mean.txt";
+		new File(version+"/KNN").mkdirs();
+		filenameKNNModel = version+"/KNN/Model";
     }
     
-    public void testPredict() {
+    public void predict() {
         System.out.println("predict"); 
         RandomValue.randomGenerator = new Random(42); 
         
@@ -101,17 +109,23 @@ public class GDPMMTrainAuto {
         instance.train(trainingData, validationData);
         
         instance.predict(validationData);
-        
+        /*
         System.out.println("DB name:\t"+instance.getDBname());
         System.out.println("Number of cluster:\t"+instance.getModelParameters().getC().toString());
         System.out.println("Number of features:\t"+instance.getModelParameters().getD().toString());
         System.out.println("Number of instances:\t"+instance.getModelParameters().getN().toString());
-        
+        */
         printClusterResult(validationData);
         printProbabilityResult(validationData);
-	    
-        //assertEquals(expResult, result);
-        //instance.erase(true);
+
+        printClusterResultOfMean(validationData);
+        
+        int numOfClu = instance.getModelParameters().getC();
+        int numOfFea = instance.getModelParameters().getD();
+        int numOfIns = instance.getModelParameters().getN();
+        
+        printKNNModelofEachInstance(validationData,numOfClu,numOfFea,numOfIns);
+        
     }
 
     private void printClusterResult(Dataset validationData){
@@ -145,6 +159,126 @@ public class GDPMMTrainAuto {
 			e.printStackTrace();
 		}
     }
+    
+    private void printKNNModelofEachInstance(Dataset validationData, int numOfClu, int numOfFea, int numOfInst){
+    	try {
+    		new File(version+"/KNN").mkdirs();
+    		FileWriter fw = new FileWriter(filenameKNNModel+"Parameter.txt");
+    		fw.write("Number of Clusters:"+numOfClu+"\n");
+    		fw.write("Number of Features:"+numOfFea+"\n");
+    		fw.flush();
+    		fw.close();
+    		
+    		for(int i=0; i<numOfClu; i++){
+				fw = new FileWriter(filenameKNNModel+(i+1)+".txt");
+	        
+		        for(Record r : validationData) {
+		            Integer clusterId = (Integer) r.getYPredicted();
+		            if(clusterId == i){
+		            	String fea = "";
+		            	for(int j=0; j<numOfFea-1; j++){
+		            		fea += r.getX().get(j).toString()+",";
+		            	}
+		            	fea += r.getX().get(numOfFea-1).toString() + "\r\n";
+		            	//System.out.print(fea);
+		            	fw.write(fea);
+		            }
+		        }
+		        fw.flush();
+		        fw.close();
+    		}
+	        
+        } catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    
+    private void printClusterResultOfMean(Dataset validationData){
+    	try {
+			
+
+	        Vector<Vector<Vector<Double>>> ClearInstance = new Vector<Vector<Vector<Double>>>();
+	        for(int i = 0; i< instance.getModelParameters().getC(); i++){
+	        		Vector<Vector<Double>> ClusterID = new Vector<Vector<Double>>();
+	        		ClearInstance.add(ClusterID);
+	        }
+	        	        
+	        for(int i=0; i<validationData.size(); i++){
+	        		Record r = validationData.get(i);
+	        		
+	        		Vector<Double> feature = new Vector<Double>();
+        			String f = String.valueOf(r.getX()).replace(" ", "").replace("{", "").replace("}", "");
+        			String[] tmp = f.split(",");
+        			for(int j=0; j<tmp.length-1;j++){
+        				//System.out.println(tmp[j]);
+        				String[] tmp2 = tmp[j].split("=");
+        				feature.add(Double.valueOf(tmp2[1]));
+        				
+        				//System.out.print(tmp2[1]+",");       				
+        			}
+        			String[] tmp2 = tmp[tmp.length-1].split("=");
+        			feature.add(Double.valueOf(tmp2[1]));
+        			
+        			int predictedId = Integer.valueOf(String.valueOf((r.getYPredicted())));
+        			ClearInstance.get(predictedId).add(feature);
+	        }
+	        
+	        Vector<Vector<Double>> FeatureMean = new Vector<Vector<Double>>();
+	        
+	        //ID
+	        for(int cid=0; cid<ClearInstance.size(); cid++){
+	        	 	Vector<Double> Mean = new Vector<Double>();
+	        		//Feature ID
+	        		for(int fid=0; fid<ClearInstance.get(cid).get(0).size(); fid++){
+	        			double mean = 0;
+	        			for(int iid=0; iid<ClearInstance.get(cid).size(); iid++){
+		        			mean += ClearInstance.get(cid).get(iid).get(fid);
+		        		}
+	        			mean /= ClearInstance.get(cid).size();
+	        			Mean.add(mean);
+	        		}
+	        		FeatureMean.add(Mean);
+	        }
+	        
+	        // print feature mean result
+	        FileWriter fwC = new FileWriter(filenameClusterMean);
+	        for(int i=0; i<FeatureMean.size(); i++){
+	        		for(int j=0; j<FeatureMean.get(i).size()-1; j++){
+	        			fwC.write(FeatureMean.get(i).get(j)+",");
+	        		}
+	        		fwC.write(FeatureMean.get(i).get(FeatureMean.get(i).size()-1)+"\n");
+	        }
+	        fwC.flush();
+	        fwC.close();
+	        
+	        
+	        // print feature mean result for all instance
+	        FileWriter fw = new FileWriter(filenameMeanFeature);
+	        
+	        Map<Integer, Object> expResult = new HashMap<>();
+	        Map<Integer, Object> result = new HashMap<>();
+	        
+	        Map<Integer, GaussianDPMM.Cluster> clusters = instance.getClusters();
+	        for(Record r : validationData) {
+	            expResult.put(r.getId(), r.getY());
+	            int clusterId = (Integer) r.getYPredicted();
+	            for(int i=0; i<FeatureMean.get(clusterId).size()-1; i++){
+	            		fw.write(FeatureMean.get(clusterId).get(i)+",");
+	            }
+	            fw.write(FeatureMean.get(clusterId).get(FeatureMean.get(clusterId).size()-1)+"\n");
+	            
+	        }
+	        fw.flush();
+	        fw.close();
+	        
+	      
+        } catch (IOException e) {
+			// TODO Auto-generated catch block
+        		e.printStackTrace();
+		}
+    }
+    
     private void printProbabilityResult(Dataset validationData){
     	try {
     			Vector<String> LABEL = new Vector<String>();
