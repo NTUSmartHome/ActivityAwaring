@@ -1,3 +1,4 @@
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,15 +26,15 @@ import dpmm.MDPMMTrain;
 import elements.FileFormat;
 
 
-public class Parser {
+public class Parser{
 	
 	public static void main(String args[]) {
-		boolean TrainLowLevelACT = true;
+		boolean TrainLowLevelACT = false;
 		boolean PCA = false;
-		boolean TrainHighLevelACT = true;
-		boolean TrainAmbient = true;
-		boolean TrainWA = true;
-		boolean Online = false;
+		boolean TrainHighLevelACT = false;
+		boolean TrainAmbient = false;
+		boolean TrainWA = false;
+		boolean Online = true;
 		String Path = "5.20.MingJe_OnlineTset";
 		int timewindow = 60;
 		int overlap = 55;
@@ -45,6 +46,8 @@ public class Parser {
 		buildClusteringModel(Path, "VehicalFeature.txt", "VehicalResult", 1, 30, 100);
 		new Report(Path,"VehicalResult","VehicalReport.txt");
 		*/
+		SocketServer server = new SocketServer();
+		server.start();
 		
 		FileFormat LowAct  = new FileFormat(Path,"SwingMotion");
 		LowAct.setRawdata("05_20_MingJe.txt");
@@ -88,8 +91,17 @@ public class Parser {
 		if(Online){
 			SimilarityFunction SimilarityFun =new SimilarityFunction(Path,"Cluster_Mean.txt",20);
 			MDPMMOnline ActionPredict = new MDPMMOnline(Path, HighAct.getResult());
+			SwingMotionFeatureExtration swingMotionFeatureExtration = new SwingMotionFeatureExtration(true, true);
 			
 			
+			//String[] str;
+			while(true){
+				String[] str = server.onRequestData();
+				String feature = swingMotionFeatureExtration.readRawDataOnline(str);
+				System.out.println(feature);
+				
+			}
+			/*
 			FileReader fr;
 			try {
 				new File(Path).mkdirs();
@@ -125,7 +137,7 @@ public class Parser {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+			*/
 			
 			
 		}

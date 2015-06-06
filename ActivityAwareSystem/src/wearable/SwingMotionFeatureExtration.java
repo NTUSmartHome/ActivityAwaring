@@ -55,8 +55,9 @@ public class SwingMotionFeatureExtration {
 		String feature = "";
 		//7 parameters are: Label, Gx, Gy, Gz, Y, P, R
 		for(int i=0; i<7; i++){
-			readLine(raw[0]);
+			readLine(raw[i]);
 		}
+		System.out.println("Osize:" + O.size());
 		
 		F.initialize();
 		getAccelFeatures(SM);
@@ -341,6 +342,7 @@ public class SwingMotionFeatureExtration {
 			int len = value.length;
 			for(int i=0; i<len; i++){
 				O.addP(Double.valueOf(value[i]));
+				System.out.println(O.size());
 			}
 		}else if(str[0].contains("R")){
 			String[] tmp = str[1].split(";");
@@ -350,7 +352,7 @@ public class SwingMotionFeatureExtration {
 				O.addR(Double.valueOf(value[i]));
 			}
 			
-			printFeature();
+			//printFeature();
 			
 		}
 	}
