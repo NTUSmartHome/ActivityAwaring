@@ -7,25 +7,24 @@ import com.datumbox.common.dataobjects.Record;
 import com.datumbox.common.utilities.RandomValue;
 import com.datumbox.configuration.MemoryConfiguration;
 import com.datumbox.framework.machinelearning.clustering.GaussianDPMM;
-import com.datumbox.framework.machinelearning.clustering.MultinomialDPMM;
 
-public class MDPMMOnline {
-	MultinomialDPMM Model;
+public class GDPMMOnline {
+	GaussianDPMM Model;
 	String version;
     String ModelName ="";
     
-    public MDPMMOnline(String path, String modelName) {
+    public GDPMMOnline(String path, String modelName) {
 		version = path;
 	    ModelName = modelName;
+	    
 	    lodaModel();
     }
 	
 	public int predict(Object[] feature){
 		MemoryConfiguration memoryConfiguration = new MemoryConfiguration();
 		Dataset Instance = new Dataset();
-		
+
 		Instance.add(Record.newDataVector(feature, "Other"));
-		
 		Model.predict(Instance);
 		Record r = Instance.get(0);
 		
@@ -40,9 +39,9 @@ public class MDPMMOnline {
 	    RandomValue.randomGenerator = new Random(42); 
 	    MemoryConfiguration memoryConfiguration = new MemoryConfiguration();
 	                    
-	    Model = new MultinomialDPMM(ModelName);
+	    Model = new GaussianDPMM(ModelName);
 	    //Model.setDBname(ModelName);
-	    Model.getDBname();
+	    System.out.println("GDPMM Model Name is "+Model.getDBname());
 	    Model.setMemoryConfiguration(memoryConfiguration);
 	}
 }

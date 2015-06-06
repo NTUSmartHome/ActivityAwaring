@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 
 import javax.print.DocFlavor;
 
@@ -13,11 +14,13 @@ import wearable.NormalizeWearableFeature;
 import wearable.PCAWearableFeatureExtration;
 import wearable.MeaningfulActionFeatureExtration;
 import wearable.SwingMotionFeatureExtration;
+import adaption.KNNModel;
 import adaption.SimilarityFunction;
 import ambient.SimulatedScenario;
 
 import com.datumbox.framework.machinelearning.clustering.MultinomialDPMMTest;
 
+import dpmm.GDPMMOnline;
 import dpmm.MDPMMOnline;
 import dpmm.GDPMMTrainAuto;
 import dpmm.GDPMMTrainD2;
@@ -28,12 +31,12 @@ import elements.FileFormat;
 public class Parser {
 	
 	public static void main(String args[]) {
-		boolean TrainLowLevelACT = true;
+		boolean TrainLowLevelACT = false;
 		boolean PCA = false;
-		boolean TrainHighLevelACT = true;
-		boolean TrainAmbient = true;
-		boolean TrainWA = true;
-		boolean Online = false;
+		boolean TrainHighLevelACT = false;
+		boolean TrainAmbient = false;
+		boolean TrainWA = false;
+		boolean Online = true;
 		String Path = "5.20.MingJe_OnlineTset";
 		int timewindow = 60;
 		int overlap = 55;
@@ -86,26 +89,50 @@ public class Parser {
 		}
 		
 		if(Online){
+			//SimilarityFunction SimilarityFun =new SimilarityFunction(Path,"Cluster_Mean.txt",20);
 			SimilarityFunction SimilarityFun =new SimilarityFunction(Path,"Cluster_Mean.txt",20);
 			MDPMMOnline ActionPredict = new MDPMMOnline(Path, HighAct.getResult());
+			GDPMMOnline WAPredict = new GDPMMOnline(Path, WAAct.getResult());
+			KNNModel KNN = new KNNModel(Path, 1);
 			
+			Scanner scanner = new Scanner(System.in);
 			
+			for(int j=0; j<3; j++){
+				String line = scanner.next();
+				
+				String[] tmp = line.split(",");
+				Double[] instF = new Double[33];
+				for(int i=0; i<instF.length;i++)instF[i] = Double.valueOf(tmp[i]);
+				
+				boolean unseen = SimilarityFun.reasoningUnseen(instF);
+				if(unseen) System.out.println("Unseen instance!\n");
+				else{ System.out.println("Seen instance\n");
+				 	KNN.predict(instF);
+					int KNNResult = KNN.getNeareast();
+					KNN.clear();
+					System.out.println("KNN Result is "+KNNResult+"\n");
+					
+					int DPMMResult = WAPredict.predict(instF);
+					System.out.println("DPMM Result is "+DPMMResult);
+				}
+			}
+			/*
 			FileReader fr;
 			try {
 				new File(Path).mkdirs();
 				new File(Path+"/Testing").mkdirs();
 				fr = new FileReader(Path+"/Testing/testCase.txt");
 				BufferedReader br =  new BufferedReader(fr);
-				String line;
+				
 				try {
 					while((line = br.readLine())!=null){
-						String[] tmp = line.split(",");
-						String label = tmp[tmp.length-1];
+						tmp = line.split(",");
+						label = tmp[tmp.length-1];
 						Double[] feature = new Double[tmp.length-1];
 						for(int i=0; i<feature.length; i++){
 							feature[i] = Double.valueOf(tmp[i]); 
 						}
-						boolean unseen = SimilarityFun.reasoningUnseen(feature, label);
+						boolean unseen = false; //SimilarityFun.reasoningUnseen(feature, label);
 						if(unseen){
 							System.out.println("An unseen instance found!");
 						}
@@ -125,8 +152,8 @@ public class Parser {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			
+		
+			*/
 			
 		}
 	}
