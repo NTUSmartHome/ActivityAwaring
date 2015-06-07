@@ -31,70 +31,30 @@ import dpmm.MDPMMTrain;
 import elements.FileFormat;
 
 
-public class Parser{
+public class ActivityAwareSystem{
+	
+	
+	
 	
 	public static void main(String args[]) {
-		boolean TrainLowLevelACT = false;
-		boolean PCA = false;
-		boolean TrainHighLevelACT = false;
-		boolean TrainAmbient = false;
-		boolean TrainWA = false;
+		boolean Train= false;
 		boolean Online = true;
 		String Path = "5.20.MingJe_OnlineTset";
 		int timewindow = 60;
 		int overlap = 55;
-		
-		/*
-		String Path = "VehicalTestingData";
-		new PCAFeatureExtration(Path,"VehicalFeature.txt","PCA_Vehical.txt",0.98);
-		new GaussianDPMMTrain(Path,"VehicalFeature.txt","VehicalResult",30,1,5,100);
-		buildClusteringModel(Path, "VehicalFeature.txt", "VehicalResult", 1, 30, 100);
-		new Report(Path,"VehicalResult","VehicalReport.txt");
-		*/
-		SocketServer server = new SocketServer();
-		server.start();
-		
-		FileFormat LowAct  = new FileFormat(Path,"SwingMotion");
-		LowAct.setRawdata("05_20_MingJe.txt");
-		FileFormat HighAct = new FileFormat(Path,"MeaningfulAction");
-		FileFormat AmbientAct = new FileFormat(Path,"Ambient");
-		FileFormat WAAct = new FileFormat(Path,"WA");
-		
-		if(TrainLowLevelACT){
-			new File(Path+"/Features").mkdirs();
-			LowAct.deletFile("Features/SwingMotionFeature.txt");
-			new SwingMotionFeatureExtration(Path,LowAct.getRawdata(),LowAct.getFeature(), true, true);
-			if(PCA){		
-				LowAct.setPCA("NormailzePCAResult.txt");
-				new NormalizeWearableFeature(Path,LowAct.getFeature());
-				new PCAWearableFeatureExtration(Path,LowAct.getFeature(),LowAct.getPCA(),8);
-				new MDPMMTrain(Path,LowAct.getPCAFeature(),LowAct.getResult(),1,5,100);
-			}
-			else{
-				new MDPMMTrain(Path,LowAct.getFeature(),LowAct.getResult(),1,5,100);
-			}
-			new Report(Path,LowAct.getResult(),LowAct.getReport());
-			new MeaningfulActionFeatureExtration(Path,LowAct.getResult(),HighAct.getFeature(), timewindow, overlap);	
+		if(Train){
+			new BuildModel(Path, timewindow, overlap);
 		}
-		if(TrainHighLevelACT){
-			new MDPMMTrain(Path,HighAct.getFeature(),HighAct.getResult(),1,5,100);
-			//buildClusteringModel(Path,HighAct.getFeature(),HighAct.getResult(),1,5,100);
-			new Report(Path,HighAct.getResult(),HighAct.getReport());
-		}
-		if(TrainAmbient){
-			new SimulatedScenario(Path, HighAct.getResult());
-		}
-		if(TrainWA){
-			new MergeAWFeature(Path, HighAct.getResult(), AmbientAct.getFeature(), WAAct.getFeature(), timewindow, overlap,false);
-			
-			//new MeaningfulActReport(Path,"ManualResult.txt","ManualReport.txt");
-			
-			new GDPMMTrainAuto(Path,WAAct.getFeature(),WAAct.getResult(),1,0.25,100);
-			new Report(Path,WAAct.getResult(),WAAct.getReport());
-		}
-	
 		if(Online){
-			//SimilarityFunction SimilarityFun =new SimilarityFunction(Path,"Cluster_Mean.txt",20);
+			SocketServer server = new SocketServer();
+			server.start();
+			
+			FileFormat LowAct  = new FileFormat(Path,"SwingMotion");
+			LowAct.setRawdata("05_20_MingJe.txt");
+			FileFormat HighAct = new FileFormat(Path,"MeaningfulAction");
+			FileFormat AmbientAct = new FileFormat(Path,"Ambient");
+			FileFormat WAAct = new FileFormat(Path,"WA");
+			
 			SimilarityFunction SimilarityFun =new SimilarityFunction(Path,"Cluster_Mean.txt",20);
 			MDPMMOnline ActionPredict = new MDPMMOnline(Path, HighAct.getResult());
 
