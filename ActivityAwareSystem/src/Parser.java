@@ -95,23 +95,21 @@ public class Parser{
 			//SimilarityFunction SimilarityFun =new SimilarityFunction(Path,"Cluster_Mean.txt",20);
 			SimilarityFunction SimilarityFun =new SimilarityFunction(Path,"Cluster_Mean.txt",20);
 			MDPMMOnline ActionPredict = new MDPMMOnline(Path, HighAct.getResult());
-<<<<<<< HEAD
+
 			SwingMotionFeatureExtration swingMotionFeatureExtration = new SwingMotionFeatureExtration(true, true);
-=======
+
 			GDPMMOnline WAPredict = new GDPMMOnline(Path, WAAct.getResult());
 			KNNModel KNN = new KNNModel(Path, 1);
->>>>>>> f44940be4c47ab7962e6b16e4fdaafe92d5e434b
-			
 			Scanner scanner = new Scanner(System.in);
 			
-<<<<<<< HEAD
 			//String[] str;
+			/*
 			while(true){
 				String[] str = server.onRequestData();
 				String feature = swingMotionFeatureExtration.readRawDataOnline(str);
 				System.out.println(feature);
-				
-=======
+			}
+			*/
 			for(int j=0; j<3; j++){
 				String line = scanner.next();
 				
@@ -130,7 +128,6 @@ public class Parser{
 					int DPMMResult = WAPredict.predict(instF);
 					System.out.println("DPMM Result is "+DPMMResult);
 				}
->>>>>>> f44940be4c47ab7962e6b16e4fdaafe92d5e434b
 			}
 			/*
 			FileReader fr;
@@ -168,14 +165,9 @@ public class Parser{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-<<<<<<< HEAD
-			*/
-			
-=======
+
 		
 			*/
->>>>>>> f44940be4c47ab7962e6b16e4fdaafe92d5e434b
-			
 		}
 	}
 	
