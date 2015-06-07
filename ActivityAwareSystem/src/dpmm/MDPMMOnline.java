@@ -1,6 +1,7 @@
 package dpmm;
 
 import java.util.Random;
+import java.util.Vector;
 
 import com.datumbox.common.dataobjects.Dataset;
 import com.datumbox.common.dataobjects.Record;
@@ -19,7 +20,26 @@ public class MDPMMOnline {
 	    ModelName = modelName;
 	    lodaModel();
     }
-	
+
+	public int predict(Vector<Double> feature){
+		MemoryConfiguration memoryConfiguration = new MemoryConfiguration();
+		Dataset Instance = new Dataset();
+		
+		Object[] featureObjects = new Object[feature.size()];
+		for(int i=0; i<feature.size(); i++){
+			featureObjects[i] = feature.get(i);
+		}		
+		Instance.add(Record.newDataVector(featureObjects, "Other"));
+		
+		Model.predict(Instance);
+		Record r = Instance.get(0);
+		
+		int predictId = Integer.valueOf(String.valueOf(r.getYPredicted()));
+		
+		System.out.println("It's predictes as "+predictId);
+		
+		return predictId;
+	}
 	public int predict(Object[] feature){
 		MemoryConfiguration memoryConfiguration = new MemoryConfiguration();
 		Dataset Instance = new Dataset();
@@ -36,6 +56,18 @@ public class MDPMMOnline {
 		return predictId;
 	}
 
+	public int getC(){
+		return Model.getModelParameters().getC();
+	}
+	
+	public int getF(){
+		return Model.getModelParameters().getD();
+	}
+	
+	public int getN(){
+		return Model.getModelParameters().getN();
+	}
+	
 	public void lodaModel() {
 	    RandomValue.randomGenerator = new Random(42); 
 	    MemoryConfiguration memoryConfiguration = new MemoryConfiguration();

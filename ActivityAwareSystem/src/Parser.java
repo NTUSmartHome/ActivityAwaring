@@ -5,10 +5,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.Vector;
 
 import javax.print.DocFlavor;
 
 import org.apache.commons.collections4.Factory;
+import org.apache.commons.collections4.Get;
 
 import wearable.MeaningfulActReport;
 import wearable.NormalizeWearableFeature;
@@ -102,14 +104,91 @@ public class Parser{
 			KNNModel KNN = new KNNModel(Path, 1);
 			Scanner scanner = new Scanner(System.in);
 			
-			//String[] str;
-			/*
-			while(true){
-				String[] str = server.onRequestData();
-				String feature = swingMotionFeatureExtration.readRawDataOnline(str);
-				System.out.println(feature);
+			MergeAWFeature MergeAW = new MergeAWFeature(Path, HighAct.getResult()+"_Mean.txt");
+			MergeAW.setC(ActionPredict.getC());
+			
+			MDPMMOnline SwingMotionPredict = new MDPMMOnline(Path, LowAct.getResult());
+			int NumOfCluOfSwingMotion = SwingMotionPredict.getC();
+			
+			
+			int numOfActionFeature = ActionPredict.getF();
+			Vector<Double> actionFeatureOnline = new Vector<Double>();
+			for(int i=0; i<numOfActionFeature; i++){
+				actionFeatureOnline.add(0.0);
 			}
-			*/
+			
+			boolean actionPredictFlag = false;
+			int Counter = 0;
+			Vector<Integer> swingMotionOnline = new Vector<Integer>();
+			
+			int actionResult=0;
+			while(true){
+				String[] request = server.onRequestData();
+				String line = swingMotionFeatureExtration.readRawDataOnline(request);
+				System.out.println(line);
+				
+				String[] feature = line.split(",");
+				Double[] featureDoubles = new Double[feature.length];
+				for (int i = 0; i < feature.length; i++)
+					featureDoubles[i] = Double.valueOf(feature[i]);
+				
+				int swingMotionResult = SwingMotionPredict.predict(featureDoubles);
+				swingMotionOnline.add(swingMotionResult);
+				Counter++;
+				
+				
+				
+				swingMotionOnline.add(swingMotionResult);
+				if(swingMotionOnline.size()==timewindow){
+					actionResult = ActionPredict.predict(generateActionFeature(swingMotionOnline));
+					for(int i=0; i<(timewindow-overlap); i++){
+						swingMotionOnline.remove(0);
+					}
+					actionPredictFlag = true;
+				}
+				
+				if(actionPredictFlag){
+					Double[] ambientFeature = new Double[12];
+					for(int i=0; i<ambientFeature.length; i++){
+						ambientFeature[i] = Double.valueOf(scanner.next());
+					}
+					String actionFeatureStr = "";
+					actionFeatureStr = MergeAW.generateWAActionFeatureOnline(actionResult);
+					String[] actionFeature = actionFeatureStr.split(",");
+					Double[] AWFeature = new Double[actionFeature.length+ambientFeature.length];
+					for(int i=0; i<AWFeature.length; i++){
+						if(i<actionFeature.length){
+							AWFeature[i] = Double.valueOf(actionFeature[i]);
+						}
+						else{
+							AWFeature[i] = ambientFeature[i];
+						}						
+					}
+					
+					
+					boolean unseen = SimilarityFun.reasoningUnseen(AWFeature);
+					if(unseen) System.out.println("Unseen instance!\n");
+					else{ System.out.println("Seen instance\n");
+					 	KNN.predict(AWFeature);
+						int KNNResult = KNN.getNeareast();
+						KNN.clear();
+						System.out.println("KNN Result is "+KNNResult+"\n");
+						
+						int DPMMResult = WAPredict.predict(AWFeature);
+						System.out.println("DPMM Result is "+DPMMResult);
+					}
+					
+					actionPredictFlag = false;
+				}
+					
+					
+					
+			}
+				
+				
+			
+		}
+			/*
 			for(int j=0; j<3; j++){
 				String line = scanner.next();
 				
@@ -129,6 +208,7 @@ public class Parser{
 					System.out.println("DPMM Result is "+DPMMResult);
 				}
 			}
+			*/
 			/*
 			FileReader fr;
 			try {
@@ -168,7 +248,19 @@ public class Parser{
 
 		
 			*/
+		
+	}
+	
+	private static Vector<Double> generateActionFeature(Vector<Integer> swingMotionOnline){
+		Vector<Double> actionFeature = new Vector<Double>();
+		for(int i=0; i<actionFeature.size(); i++)
+			actionFeature.set(i, 0.0);
+		
+		for(int i=0; i<swingMotionOnline.size(); i++){
+			int index = swingMotionOnline.get(i);
+			actionFeature.set(index, actionFeature.get(index)+1);
 		}
+		return actionFeature;
 	}
 	
 	double[] getWearableFeature(String Instance){
