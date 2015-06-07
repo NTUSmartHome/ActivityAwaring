@@ -92,7 +92,7 @@ public class Parser{
 			new GDPMMTrainAuto(Path,WAAct.getFeature(),WAAct.getResult(),1,0.25,100);
 			new Report(Path,WAAct.getResult(),WAAct.getReport());
 		}
-		
+	
 		if(Online){
 			//SimilarityFunction SimilarityFun =new SimilarityFunction(Path,"Cluster_Mean.txt",20);
 			SimilarityFunction SimilarityFun =new SimilarityFunction(Path,"Cluster_Mean.txt",20);
@@ -104,54 +104,44 @@ public class Parser{
 			KNNModel KNN = new KNNModel(Path, 1);
 			Scanner scanner = new Scanner(System.in);
 			
-			MergeAWFeature MergeAW = new MergeAWFeature(Path, HighAct.getResult()+"_Mean.txt");
-			MergeAW.setC(ActionPredict.getC());
+			MergeAWFeature MergeAW = new MergeAWFeature(Path, HighAct.getResult()+"_Mean_Cluster.txt");
+
 			
 			MDPMMOnline SwingMotionPredict = new MDPMMOnline(Path, LowAct.getResult());
-			int NumOfCluOfSwingMotion = SwingMotionPredict.getC();
-			
-			
-			int numOfActionFeature = ActionPredict.getF();
-			Vector<Double> actionFeatureOnline = new Vector<Double>();
-			for(int i=0; i<numOfActionFeature; i++){
-				actionFeatureOnline.add(0.0);
-			}
+
+			int numOfActionFeature = MergeAW.getWF();
 			
 			boolean actionPredictFlag = false;
-			int Counter = 0;
 			Vector<Integer> swingMotionOnline = new Vector<Integer>();
 			
 			int actionResult=0;
 			while(true){
 				String[] request = server.onRequestData();
 				String line = swingMotionFeatureExtration.readRawDataOnline(request);
-				System.out.println(line);
+				//System.out.println(line);
 				
 				String[] feature = line.split(",");
-				Double[] featureDoubles = new Double[feature.length];
-				for (int i = 0; i < feature.length; i++)
+				Double[] featureDoubles = new Double[feature.length-1];
+				for (int i = 0; i < featureDoubles.length; i++)
 					featureDoubles[i] = Double.valueOf(feature[i]);
 				
 				int swingMotionResult = SwingMotionPredict.predict(featureDoubles);
 				swingMotionOnline.add(swingMotionResult);
-				Counter++;
 				
+				System.out.print(swingMotionOnline.size()+"\n");
 				
-				
-				swingMotionOnline.add(swingMotionResult);
 				if(swingMotionOnline.size()==timewindow){
-					actionResult = ActionPredict.predict(generateActionFeature(swingMotionOnline));
+					actionResult = ActionPredict.predict(generateActionFeature(swingMotionOnline,numOfActionFeature));
 					for(int i=0; i<(timewindow-overlap); i++){
 						swingMotionOnline.remove(0);
 					}
-					actionPredictFlag = true;
-				}
-				
-				if(actionPredictFlag){
 					Double[] ambientFeature = new Double[12];
 					for(int i=0; i<ambientFeature.length; i++){
+						System.out.print("Please input ambient feature "+i+": ");
 						ambientFeature[i] = Double.valueOf(scanner.next());
 					}
+					
+					
 					String actionFeatureStr = "";
 					actionFeatureStr = MergeAW.generateWAActionFeatureOnline(actionResult);
 					String[] actionFeature = actionFeatureStr.split(",");
@@ -161,25 +151,26 @@ public class Parser{
 							AWFeature[i] = Double.valueOf(actionFeature[i]);
 						}
 						else{
-							AWFeature[i] = ambientFeature[i];
+							AWFeature[i] = ambientFeature[i-actionFeature.length];
 						}						
 					}
 					
 					
 					boolean unseen = SimilarityFun.reasoningUnseen(AWFeature);
-					if(unseen) System.out.println("Unseen instance!\n");
-					else{ System.out.println("Seen instance\n");
+					if(unseen){ System.out.println("Unseen instance!\n");}
+					else{ 
+						System.out.println("Seen instance\n");
 					 	KNN.predict(AWFeature);
 						int KNNResult = KNN.getNeareast();
-						KNN.clear();
 						System.out.println("KNN Result is "+KNNResult+"\n");
+						KNN.clear();
 						
 						int DPMMResult = WAPredict.predict(AWFeature);
 						System.out.println("DPMM Result is "+DPMMResult);
 					}
 					
-					actionPredictFlag = false;
 				}
+				
 					
 					
 					
@@ -188,73 +179,14 @@ public class Parser{
 				
 			
 		}
-			/*
-			for(int j=0; j<3; j++){
-				String line = scanner.next();
-				
-				String[] tmp = line.split(",");
-				Double[] instF = new Double[33];
-				for(int i=0; i<instF.length;i++)instF[i] = Double.valueOf(tmp[i]);
-				
-				boolean unseen = SimilarityFun.reasoningUnseen(instF);
-				if(unseen) System.out.println("Unseen instance!\n");
-				else{ System.out.println("Seen instance\n");
-				 	KNN.predict(instF);
-					int KNNResult = KNN.getNeareast();
-					KNN.clear();
-					System.out.println("KNN Result is "+KNNResult+"\n");
-					
-					int DPMMResult = WAPredict.predict(instF);
-					System.out.println("DPMM Result is "+DPMMResult);
-				}
-			}
-			*/
-			/*
-			FileReader fr;
-			try {
-				new File(Path).mkdirs();
-				new File(Path+"/Testing").mkdirs();
-				fr = new FileReader(Path+"/Testing/testCase.txt");
-				BufferedReader br =  new BufferedReader(fr);
-				
-				try {
-					while((line = br.readLine())!=null){
-						tmp = line.split(",");
-						label = tmp[tmp.length-1];
-						Double[] feature = new Double[tmp.length-1];
-						for(int i=0; i<feature.length; i++){
-							feature[i] = Double.valueOf(tmp[i]); 
-						}
-						boolean unseen = false; //SimilarityFun.reasoningUnseen(feature, label);
-						if(unseen){
-							System.out.println("An unseen instance found!");
-						}
-						else{
-							int predictId = ActionPredict.predict(feature, label);
-							System.out.println("Predicted result is "+predictId);
-						}
-						
-					}
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		
-			*/
+			
 		
 	}
 	
-	private static Vector<Double> generateActionFeature(Vector<Integer> swingMotionOnline){
+	private static Vector<Double> generateActionFeature(Vector<Integer> swingMotionOnline, int numOfActionClu){
 		Vector<Double> actionFeature = new Vector<Double>();
-		for(int i=0; i<actionFeature.size(); i++)
-			actionFeature.set(i, 0.0);
+		for(int i=0; i<numOfActionClu; i++)
+			actionFeature.add(0.0);
 		
 		for(int i=0; i<swingMotionOnline.size(); i++){
 			int index = swingMotionOnline.get(i);

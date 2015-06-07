@@ -55,9 +55,8 @@ public class SwingMotionFeatureExtration {
 		String feature = "";
 		//7 parameters are: Label, Gx, Gy, Gz, Y, P, R
 		for(int i=0; i<7; i++){
-			readLine(raw[i]);
+			readLineOnline(raw[i]);
 		}
-		System.out.println("Osize:" + O.size());
 		
 		F.initialize();
 		getAccelFeatures(SM);
@@ -213,12 +212,15 @@ public class SwingMotionFeatureExtration {
 					if(line.contains("T")){
 						
 						line = br.readLine();
+						
 						if(!line.contains("L"))
 							for(int i=0; i<9; i++) line = br.readLine();
 						else{
 							readLine(line);
 							for(int i=0; i<9; i++){ 
-								readLine(br.readLine());
+								line = br.readLine();
+								readLine(line);
+								//System.out.println(line);
 							}
 						}
 					}
@@ -293,7 +295,65 @@ public class SwingMotionFeatureExtration {
 		}
 		
 	}
-	
+	private void readLineOnline(String line){
+		String[] str = line.split(":");
+		//System.out.println(line);
+		if(str[0].contains("L")){
+			L.setACT(str[1]);
+		}else if(str[0].contains("T")){
+			
+		}else if(str[0].contains("A") && !withGravity){
+			String[] tmp = str[1].split(";");
+			String[] value = tmp[0].split(",");
+			int len = value.length;
+			for(int i=0; i<len; i++){
+				if(str[0].contains("x")){
+					A.addX(Double.valueOf(value[i]));
+					
+				}else if(str[0].contains("y")){
+					A.addY(Double.valueOf(value[i]));
+					System.out.println(A.getX(i));
+				}else if(str[0].contains("z")){
+					A.addZ(Double.valueOf(value[i]));
+				}
+			}
+		}else if(str[0].contains("G") && withGravity){
+			String[] tmp = str[1].split(";");
+			String[] value = tmp[0].split(",");
+			int len = value.length;
+			for(int i=0; i<len; i++){
+				if(str[0].contains("x")){
+					A.addX(Double.valueOf(value[i]));
+				}else if(str[0].contains("y")){
+					A.addY(Double.valueOf(value[i]));
+				}else if(str[0].contains("z")){
+					A.addZ(Double.valueOf(value[i]));
+				}
+			}
+		}else if(str[0].contains("Y")){
+			String[] tmp = str[1].split(";");
+			String[] value = tmp[0].split(",");
+			int len = value.length;
+			for(int i=0; i<len; i++){
+				O.addA(Double.valueOf(value[i]));
+			}
+		}else if(str[0].contains("P")){
+			String[] tmp = str[1].split(";");
+			String[] value = tmp[0].split(",");
+			int len = value.length;
+			for(int i=0; i<len; i++){
+				O.addP(Double.valueOf(value[i]));
+			}
+		}else if(str[0].contains("R")){
+			String[] tmp = str[1].split(";");
+			String[] value = tmp[0].split(",");
+			int len = value.length;
+			for(int i=0; i<len; i++){
+				O.addR(Double.valueOf(value[i]));
+			}
+						
+		}
+	}
 	private void readLine(String line){
 		String[] str = line.split(":");
 		//System.out.println(line);
@@ -342,7 +402,6 @@ public class SwingMotionFeatureExtration {
 			int len = value.length;
 			for(int i=0; i<len; i++){
 				O.addP(Double.valueOf(value[i]));
-				System.out.println(O.size());
 			}
 		}else if(str[0].contains("R")){
 			String[] tmp = str[1].split(";");
@@ -352,7 +411,7 @@ public class SwingMotionFeatureExtration {
 				O.addR(Double.valueOf(value[i]));
 			}
 			
-			//printFeature();
+			printFeature();
 			
 		}
 	}

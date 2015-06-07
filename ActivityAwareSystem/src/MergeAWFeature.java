@@ -19,38 +19,39 @@ public class MergeAWFeature {
 		printMergeFile();
 	}
 	
+	
+	// Online Mode
 	int WC;
 	String AmbientFilename;
 	String WearableMeanFilename;
 	Vector<String> wearableMean = new Vector<String>();
 	Vector<String> ambientMean = new Vector<String>();
-	
+	int NumF = 0;
 	public MergeAWFeature(String path, String wearableMeanFilename){
 		
 		Path = path;
 		WearableMeanFilename = wearableMeanFilename;
 		
 		try {
+			
 			FileReader frW = new FileReader(Path+"/Reasoning/"+WearableMeanFilename);
 			BufferedReader brW =  new BufferedReader(frW);
-			for(int i=0; i<WC; i++){
-				try {
-					wearableMean.add(brW.readLine());
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			String line;
+			while((line=brW.readLine())!=null){
+					wearableMean.add(line);	
 			}
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			String[] tmp = wearableMean.get(0).split(",");
+			NumF = tmp.length;
+		} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 		}
 		
 
 	}
 	
-	public void setC(int wC){
-		WC = wC;
+	public int getWF(){
+		return NumF;
 	}
 	public String generateWAActionFeatureOnline(int actionResult){
 		String WAFeature = "";

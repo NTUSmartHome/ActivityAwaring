@@ -251,10 +251,10 @@ public abstract class BaseMLmodel<MP extends BaseMLmodel.ModelParameters, TP ext
      * @param newData 
      */
     public void predict(Dataset newData) { 
-        
+        /*
         if(GeneralConfiguration.DEBUG) {
             System.out.println("predict()");
-        }
+        }*/
         knowledgeBase.setModelname(Modelname);
         knowledgeBase.load();
         

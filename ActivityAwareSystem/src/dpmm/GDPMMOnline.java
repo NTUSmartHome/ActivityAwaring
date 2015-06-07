@@ -30,7 +30,7 @@ public class GDPMMOnline {
 		
 		int predictId = Integer.valueOf(String.valueOf(r.getYPredicted()));
 		
-		System.out.println("It's predictes as "+predictId);
+		System.out.println(Model.getDBname()+" is predictes as "+predictId);
 		
 		return predictId;
 	}

@@ -21,8 +21,6 @@ public class SocketServer extends java.lang.Thread {
             server = new ServerSocket(ServerPort);
 
 
-
-
         } catch (java.io.IOException e) {
             System.out.println("Socket啟動有問題 !");
             System.out.println("IOException :" + e.toString());
@@ -40,8 +38,8 @@ public class SocketServer extends java.lang.Thread {
                 synchronized (server) {
                     socket = server.accept();
                 }
-                System.out.println("取得連線 : InetAddress = "
-                        + socket.getInetAddress());
+                /*System.out.println("取得連線 : InetAddress = "
+                        + socket.getInetAddress());*/
                 // TimeOut時間
                 socket.setSoTimeout(15000);
 

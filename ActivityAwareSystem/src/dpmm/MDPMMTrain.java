@@ -66,7 +66,7 @@ public class MDPMMTrain {
 		filenameProbability = version+"/DPMM/"+oFile+"_probability.txt";
 		filenameMeanFeature = version+"/Features/"+oFile+"_Mean.txt";
 		new File(version+"/Reasoning").mkdirs();
-		filenameClusterMean = version+"/Reasoning/Cluster_Mean.txt";
+		filenameClusterMean = version+"/Reasoning/"+oFile+"_Mean_Cluster.txt";
 		
     }
 
