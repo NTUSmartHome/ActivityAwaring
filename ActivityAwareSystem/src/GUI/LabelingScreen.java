@@ -12,8 +12,6 @@ import java.util.Vector;
 
 import javax.swing.*;
 
-import com.datumbox.common.dataobjects.Dataset;
-
 public class LabelingScreen {
 	String Path;
 	String iFile;
@@ -22,7 +20,7 @@ public class LabelingScreen {
 	int numOfColor = 0;
 	int numOfAllInstance = 0;
 	int numOfPartInstance = 0;
-	double threadshold = 0.03;
+	double threadshold = 0.01;
 	Vector<Integer> partInstance = new Vector<Integer>();
 	Vector<Integer> partLength = new Vector<Integer>();
 	Vector<Integer> Instance = new Vector<Integer>();
@@ -34,28 +32,29 @@ public class LabelingScreen {
 		loadResult();
 		generateInstance();
 		
-		int width = 50;
-	    int height = 50;
-		int totalWidth = 0;
-		totalWidth = 550;
+		int width = 0;
+	    int height = 100;
+		int totalWidth = 1200;
 
 		JFrame f=new JFrame("JLabel1");
-	    f.setSize(totalWidth+10,height+50);
+	    f.setSize(totalWidth+80,height+250);
 	    f.setLocationRelativeTo(null);
 	    f.setVisible(true);
-	    
-	   // generateAllColor();
+	    f.getContentPane().setLayout(null);
 	    
 	    JLabel[] labels = new JLabel[numOfPartInstance];
-	    int locationX = 0;
+	    int locationX = 40;
 	    for(int i=0; i<numOfPartInstance; i++){
-	    	labels[i] = new JLabel(String.valueOf(i));
-	    	//labels[i] = new JLabel(String.valueOf(partInstance.get(i)));
-	    	width = (int)((partLength.get(i)*500)/numOfAllInstance);
-	    	locationX += width;
-	    	labels[i].setBounds(locationX, 0, width, height);
-	    	
 	    	int cluId = partInstance.get(i);
+	    	labels[i] = new JLabel(String.valueOf(cluId));
+	    	
+	    	width = (int)((partLength.get(i)*totalWidth)/numOfAllInstance);
+	    	//width += 5;
+	    	System.out.println("\tWidth is "+ width);
+	    	
+    		labels[i].setBounds(locationX, 5, width, height);
+
+	    	locationX += width;
 	    	Vector<Integer> getcolor = getColor(cluId);
 	    	int r = getcolor.get(0);
 	    	int g = getcolor.get(1);
@@ -63,12 +62,13 @@ public class LabelingScreen {
 	    	Color color = new Color(r,g,b);
 	    	labels[i].setBackground(color);
 	    	
-			System.out.print(i+": "+r+","+g+","+b+"\n");
-	    	
+			System.out.print(cluId+" in this part of length:"+width+" and its rgb is "+r+","+g+","+b+"\n");
+
+	    	System.out.println("\tLoacted at "+ locationX);
 	    	labels[i].setOpaque(true);
 	    	
 	    }
-	    f.getContentPane().setLayout(null);
+	    
 	    for(int i=0; i<numOfPartInstance; i++){
 	    	f.getContentPane().add(labels[i]);
 	    }
@@ -79,24 +79,21 @@ public class LabelingScreen {
 	private Vector<Integer> getColor (int id){
 		Vector<Integer> color = new Vector<Integer>();
 		for(int i=0; i<3; i++){
-			color.add(100);
+			color.add(255);
 		}
 		for(int i=0; i<colorVectors.size(); i++){
 			if(id == colorVectors.get(i).get(3)){
 				for (int j = 0; j < 3; j++) {
 					color.set(j, colorVectors.get(i).get(j));
 				}
-				
 			}
 		}
-		
 		return color;
 	}
 	
 	
 	public void generateAllColor(){
 		for(int i=0; i<numOfColor; i++){
-			
 			colorVectors.add(generateColor());
 		}
 		
@@ -105,26 +102,20 @@ public class LabelingScreen {
 	int count = 0;
 	int id = 0;
 	public Vector<Integer> generateColor(){
-		//System.out.println(id+":");
-		//id ++;
 		Vector<Integer> color = new Vector<Integer>();
 		Random random = new Random();
 		for(int i=0; i<3; i++){
-			
-			color.add(random.nextInt(220)+20);
+			color.add(random.nextInt(200)+50);
 		}
-		
 		if(compareSimilar(color)){
 			color = generateColor();
 		}
-		
-		
 		return color;
-		
 	}
 	private boolean compareSimilar(Vector<Integer> color){
 		int minDis = 800;
-		int averageDis = (int)(660/numOfColor);
+		int averageDis = (int)(200/numOfColor);
+		int averageDis2 = (int)(200/(numOfColor*2/3));
 		for(int i=0; i<colorVectors.size(); i++){
 			int tmpDis = 0; 
 			int[] tmpAxisDis = new int[3];
@@ -132,49 +123,31 @@ public class LabelingScreen {
 				tmpAxisDis[j] =Math.abs(colorVectors.get(i).get(j)-color.get(j)); 
 				tmpDis += tmpAxisDis[j];
 			}
+			if(tmpAxisDis[2]<averageDis && tmpAxisDis[2]<averageDis && tmpAxisDis[0]<averageDis){
+				return true;
+			}
+			else if(tmpAxisDis[0]<averageDis2 && tmpAxisDis[1]<averageDis2){
+				return true;
+			}
+			else if(tmpAxisDis[2]<averageDis2 && tmpAxisDis[1]<averageDis2){
+				return true;
+			}
+			else if(tmpAxisDis[2]<averageDis2 && tmpAxisDis[0]<averageDis2){
+				return true;
+			}
+			/*
 			if(tmpDis<minDis){
 				minDis = tmpDis;
-			}
+			}*/
 		}
-		boolean similar = false;
 		
+		/*
 		if(minDis<averageDis){
-			similar = true;
-		}
+			return true;
+		}*/
 		
-		return similar;
-	}
-	
-	
-	
-	public void loadResult(){
-		new File(Path+"/DPMM").mkdirs();
-		FileReader fr;
-		try {
-			fr = new FileReader(Path+"/DPMM/"+iFile);
-			BufferedReader br = new BufferedReader(fr);
-			String line = "";
-			int preClu = -1;
-			while((line = br.readLine())!=null){
-				String[] instanceStr = line.split("	");
-				int clu = Integer.valueOf(instanceStr[1]);
-				if(clu!=preClu){
-					partInstance.add(clu);
-					partLength.add(1);
-				}
-				else{
-					int index = partLength.size()-1;
-					int len = partLength.get(index) + 1;
-					partLength.set(index,len);
-				}
-				preClu = clu;
-			}
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+		return false;
+	}	
 
 	private void generateInstance(){
 		numOfPartInstance = partInstance.size();
@@ -205,6 +178,7 @@ public class LabelingScreen {
 		}
 		System.out.println("Number of Color is "+(numOfColor+1));
 		generateAllColor();
+		
 		for(int i=0,j=0; i<Instance.size(); i++){
 			if(InstanceRatio.get(i)>threadshold){
 				colorVectors.get(j).add(Instance.get(i));
@@ -214,5 +188,32 @@ public class LabelingScreen {
 		}
 	}
 	
-	
+	public void loadResult(){
+		new File(Path+"/DPMM").mkdirs();
+		FileReader fr;
+		try {
+			fr = new FileReader(Path+"/DPMM/"+iFile);
+			BufferedReader br = new BufferedReader(fr);
+			String line = "";
+			int preClu = -1;
+			while((line = br.readLine())!=null){
+				String[] instanceStr = line.split("	");
+				int clu = Integer.valueOf(instanceStr[1]);
+				if(clu!=preClu){
+					partInstance.add(clu);
+					partLength.add(1);
+				}
+				else{
+					int index = partLength.size()-1;
+					int len = partLength.get(index) + 1;
+					partLength.set(index,len);
+				}
+				preClu = clu;
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
