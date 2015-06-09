@@ -1,19 +1,13 @@
-<<<<<<< HEAD
+/ActivityAwareSystem.class
+/BuildModel.class
+/GUI/
 /MergeAWFeature.class
 /PCAFeatureExtration.class
-/Parser.class
 /Report.class
 /SocketServer.class
 /adaption/
 /ambient/
 /dpmm/
 /elements/
-/wearable/
-=======
-/adaption/
-/dpmm/
->>>>>>> f44940be4c47ab7962e6b16e4fdaafe92d5e434b
-/ActivityAwareSystem.class
-/BuildModel.class
 /svm/
-/GUI/
+/wearable/

@@ -37,7 +37,7 @@ public class ActivityAwareSystem{
 			new BuildModel(Path, timewindow, overlap);
 		}
 		if(Label){
-			new LabelingScreen();
+			new LabelingScreen(Path,"WAResult");
 		}
 		if(Online){
 			SocketServer server = new SocketServer();
