@@ -31,22 +31,22 @@ public class GDPMMTrainD2 {
 	GaussianDPMM instance;
 	String ModelName = "";
     
-    public GDPMMTrainD2(String path, String iFile, String oFile, double a, double mu1, double mu2, int iteration) {
+    public GDPMMTrainD2(String path, String name, double a, double mu1, double mu2, int iteration) {
 		version = path;
 		alpha = a;
 	    iter = iteration;
 	    m1 = mu1;
 	    m2 = mu2;
-	    ModelName = oFile;
+	    ModelName = name;
 	    //alpha_words =aw;
-	    setFilepath(iFile,oFile);
+	    setFilepath(name);
 	    testPredict();
     }
-    private void setFilepath(String iFile, String oFile){
-	    	new File(version+"/DPMM").mkdirs();
-	    	trainingData = generateDatasetFeature(version+"/Features/"+iFile);
-		filename =  version+"/DPMM/"+oFile;
-		filenameProbability = version+"/DPMM/"+oFile+"_probability.txt";
+    private void setFilepath(String name){
+    	new File(version+"/DPMM").mkdirs();
+    	trainingData = generateDatasetFeature(version+"/Features/"+name+"Feature.txt");
+		filename =  version+"/DPMM/"+name;
+		filenameProbability = version+"/DPMM/"+name+"_probability.txt";
     }
     
     public void testPredict() {
@@ -82,16 +82,7 @@ public class GDPMMTrainD2 {
         
         printClusterResult();
         printProbabilityResult();
-	     
-	    /*
-        // 5 Cross validation
-        MultinomialDPMM.ValidationMetrics vm = instance.kFoldCrossValidation(trainingData, 5);        
-        double expResult = 1.0;
-        double result = vm.getPurity();
-       // assertEquals(expResult, result, TestConfiguration.DOUBLE_ACCURACY_MEDIUM);
-        System.out.println("Cross Validation Result: "+result);
-        */
-        //assertEquals(expResult, result);
+
         instance.erase(true);
     }
 
@@ -114,7 +105,7 @@ public class GDPMMTrainD2 {
 	            result.put(r.getId(), label);
 	            
 	            String InstanceResult = "Label: "+r.getY()+", predict: "+ r.getYPredicted();
-	            String printInstanceResult = r.getY()+"\t"+ r.getYPredicted()+"\n";
+	            String printInstanceResult = r.getY()+"\t"+ r.getYPredicted()+"\r\n";
 	            //System.out.println(InstanceResult);
 	            fw.write(printInstanceResult);
 	        }
@@ -189,10 +180,10 @@ public class GDPMMTrainD2 {
             			}
 	            }
 	            if(r.getY().equals(LABEL.get(LABEL.size()-1))){
-    				fw.write("1\n");
+    				fw.write("1\r\n");
 	    			}
 	    			else{
-	    				fw.write("0\n");
+	    				fw.write("0\r\n");
 	    			}
 	        }
 	        fw.flush();

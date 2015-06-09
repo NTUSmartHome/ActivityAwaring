@@ -12,22 +12,12 @@ import javax.print.DocFlavor;
 import org.apache.commons.collections4.Factory;
 import org.apache.commons.collections4.Get;
 
-import wearable.MeaningfulActReport;
-import wearable.NormalizeWearableFeature;
-import wearable.PCAWearableFeatureExtration;
-import wearable.MeaningfulActionFeatureExtration;
-import wearable.SwingMotionFeatureExtration;
-import adaption.KNNModel;
-import adaption.SimilarityFunction;
-import ambient.SimulatedScenario;
-
-import com.datumbox.framework.machinelearning.clustering.MultinomialDPMMTest;
-
 import dpmm.GDPMMOnline;
 import dpmm.MDPMMOnline;
-import dpmm.GDPMMTrainAuto;
-import dpmm.GDPMMTrainD2;
-import dpmm.MDPMMTrain;
+import wearable.SwingMotionFeatureExtration;
+import GUI.LabelingScreen;
+import adaption.KNNModel;
+import adaption.SimilarityFunction;
 import elements.FileFormat;
 
 
@@ -38,12 +28,16 @@ public class ActivityAwareSystem{
 	
 	public static void main(String args[]) {
 		boolean Train= false;
-		boolean Online = true;
-		String Path = "5.20.MingJe_OnlineTset";
+		boolean Online = false;
+		boolean Label = true;
+		String Path = "5.20.MingJe_v1";
 		int timewindow = 60;
 		int overlap = 55;
 		if(Train){
 			new BuildModel(Path, timewindow, overlap);
+		}
+		if(Label){
+			new LabelingScreen();
 		}
 		if(Online){
 			SocketServer server = new SocketServer();

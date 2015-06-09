@@ -22,11 +22,18 @@ import com.datumbox.common.dataobjects.Record;
 import com.datumbox.common.utilities.RandomValue;
 import com.datumbox.configuration.MemoryConfiguration;
 import com.datumbox.framework.machinelearning.datatransformation.SimpleDummyVariableExtractor;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+
 import libsvm.svm_parameter;
+
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 /**
@@ -34,8 +41,13 @@ import static org.junit.Assert.*;
  * @author Vasilis Vryniotis <bbriniotis at datumbox.com>
  */
 public class SupportVectorMachineTest {
-    
-    public SupportVectorMachineTest() {
+	String version;// = "5.20.MingJe";
+	
+	double alpha;
+    int iter;
+    int featureNum = 0;
+    public SupportVectorMachineTest(String path) {
+    	version = path;
     }
 
 
@@ -132,6 +144,39 @@ public class SupportVectorMachineTest {
     }
 
 
+
+    private Dataset generateDatasetFeature(String filename ) {
+		Dataset trainingData = new Dataset();
+		try {
+			FileReader fr = new FileReader(filename);
+			BufferedReader br = new BufferedReader(fr);
+			String line = "";
+			Dataset tmpData = new Dataset();
+			while((line = br.readLine())!=null){
+				String[] tmp = line.split(",");
+				featureNum = tmp.length-1;
+				Object[] feature = new Object[featureNum];
+				for(int i=0; i<feature.length; i++){
+					feature[i] = Math.abs(Double.valueOf(tmp[i]));
+				}
+				String lable = tmp[featureNum];
+				tmpData.add(Record.newDataVector(feature, lable));
+			}
+			
+			for(int i=0; i<tmpData.size(); i++){
+				trainingData.add(tmpData.get(i));
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return trainingData;
+    }
+    
+    
+    
     /**
      * Test of kFoldCrossValidation method, of class SupportVectorMachine.
      */

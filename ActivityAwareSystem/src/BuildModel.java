@@ -22,20 +22,20 @@ public class BuildModel {
 		new File(Path+"/Features").mkdirs();
 		LowAct.deletFile("Features/SwingMotionFeature.txt");
 		new SwingMotionFeatureExtration(Path,LowAct.getRawdata(),LowAct.getFeature(), true, true);
-		new MDPMMTrain(Path,LowAct.getFeature(),LowAct.getResult(),1,5,100);
+		new MDPMMTrain(Path,LowAct.getName(),1,5,100);
 		new Report(Path,LowAct.getResult(),LowAct.getReport());
 		new MeaningfulActionFeatureExtration(Path,LowAct.getResult(),HighAct.getFeature(), timewindow, overlap);	
 	
 		/* Build Meaningful Action Model*/
-		new MDPMMTrain(Path,HighAct.getFeature(),HighAct.getResult(),1,5,100);
+		new MDPMMTrain(Path,HighAct.getName(),1,5,100);
 		new Report(Path,HighAct.getResult(),HighAct.getReport());
 	
 		/* Generate Offline (for training) Ambient Features*/
 		new SimulatedScenario(Path, HighAct.getResult());
 	
 		/* Build Ambient + Wearable Model*/
-		new MergeAWFeature(Path, HighAct.getResult(), AmbientAct.getFeature(), WAAct.getFeature(), timewindow, overlap,false);
-		new GDPMMTrainAuto(Path,WAAct.getFeature(),WAAct.getResult(),1,0.25,100);
+		new MergeAWFeature(Path, HighAct.getName(), AmbientAct.getFeature(), WAAct.getFeature(), timewindow, overlap,false);
+		new GDPMMTrainAuto(Path,WAAct.getName(),1,0.25,100);
 		new Report(Path,WAAct.getResult(),WAAct.getReport());
 	}
 	

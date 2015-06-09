@@ -50,23 +50,23 @@ public class MDPMMTrain {
     
     String modelName = "";
    
-    public MDPMMTrain(String path, String iFile, String oFile, double a, double aw, int iteration) {
+    public MDPMMTrain(String path, String name, double a, double aw, int iteration) {
 		version = path;
 		alpha = a;
 	    iter = iteration;
 	    alpha_words =aw;
-	    modelName = oFile;
-	    setFilepath(iFile,oFile);
+	    modelName = name;
+	    setFilepath(name);
 	    predict();
     }
-    private void setFilepath(String iFile, String oFile){
-	    	new File(version+"/DPMM").mkdirs();
-	    	trainingData = generateDatasetFeature(version+"/Features/"+iFile);
-		filename =  version+"/DPMM/"+oFile;
-		filenameProbability = version+"/DPMM/"+oFile+"_probability.txt";
-		filenameMeanFeature = version+"/Features/"+oFile+"_Mean.txt";
+    private void setFilepath(String name){
+    	new File(version+"/DPMM").mkdirs();
+    	trainingData = generateDatasetFeature(version+"/Features/"+name+"Feature.txt");
+    	filename =  version+"/DPMM/"+name+"Result";
+		filenameProbability = version+"/DPMM/"+name+"_probability.txt";
+		filenameMeanFeature = version+"/Features/"+name+"_Mean.txt";
 		new File(version+"/Reasoning").mkdirs();
-		filenameClusterMean = version+"/Reasoning/"+oFile+"_Mean_Cluster.txt";
+		filenameClusterMean = version+"/Reasoning/"+name+"_Mean_Cluster.txt";
 		
     }
 
@@ -136,7 +136,7 @@ public class MDPMMTrain {
 	            result.put(r.getId(), label);
 	            
 	            String InstanceResult = "Label: "+r.getY()+", predict: "+ r.getYPredicted();
-	            String printInstanceResult = r.getY()+"\t"+ r.getYPredicted()+"\n";
+	            String printInstanceResult = r.getY()+"\t"+ r.getYPredicted()+"\r\n";
 	            //System.out.println(InstanceResult);
 	            fw.write(printInstanceResult);
 	        }
@@ -202,7 +202,7 @@ public class MDPMMTrain {
 	        		for(int j=0; j<FeatureMean.get(i).size()-1; j++){
 	        			fwC.write(FeatureMean.get(i).get(j)+",");
 	        		}
-	        		fwC.write(FeatureMean.get(i).get(FeatureMean.get(i).size()-1)+"\n");
+	        		fwC.write(FeatureMean.get(i).get(FeatureMean.get(i).size()-1)+"\r\n");
 	        }
 	        fwC.flush();
 	        fwC.close();
@@ -221,7 +221,7 @@ public class MDPMMTrain {
 	            for(int i=0; i<FeatureMean.get(clusterId).size()-1; i++){
 	            		fw.write(FeatureMean.get(clusterId).get(i)+",");
 	            }
-	            fw.write(FeatureMean.get(clusterId).get(FeatureMean.get(clusterId).size()-1)+"\n");
+	            fw.write(FeatureMean.get(clusterId).get(FeatureMean.get(clusterId).size()-1)+"\r\n");
 	            
 	        }
 	        fw.flush();
@@ -297,10 +297,10 @@ public class MDPMMTrain {
             			}
 	            }
 	            if(r.getY().equals(LABEL.get(LABEL.size()-1))){
-    				fw.write("1\n");
+    				fw.write("1\r\n");
 	    			}
 	    			else{
-	    				fw.write("0\n");
+	    				fw.write("0\r\n");
 	    			}
 	        }
 	        fw.flush();

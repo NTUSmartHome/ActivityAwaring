@@ -35,6 +35,7 @@ public class FileFormat {
 	public void setReport(String name){ Report  = name;	}
 	public void setPCA(String name){PCA = name;}
 	public void setResult(String name){Result = name;}
+	public void setName(String name){Name = name;}
 	
 	public String getRawdata(){return Rawdata;	}
 	public String getFeature(){return Feature;	}
@@ -42,7 +43,7 @@ public class FileFormat {
 	public String getPCA(){ return PCA;	}
 	public String getPCAFeature(){ return "PCA"+Feature;	}
 	public String getResult(){return Result;}
-	
+	public String getName(){return Name;}
 	
 	public void deletFile(String filename){
 		File file = new File(version+"/"+filename);
@@ -64,7 +65,7 @@ public class FileFormat {
 				FileOutputStream fs = new FileOutputStream(newPath);
 				byte[] buffer = new byte[1444];
 				while ( (byteread = inStream.read(buffer)) != -1) {
-					bytesum += byteread; //位元組數 檔案大小
+					bytesum += byteread;
 					System.out.println(bytesum);
 					fs.write(buffer, 0, byteread);
 				}
