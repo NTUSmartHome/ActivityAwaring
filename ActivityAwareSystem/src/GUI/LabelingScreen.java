@@ -20,7 +20,7 @@ public class LabelingScreen {
 	int numOfColor = 0;
 	int numOfAllInstance = 0;
 	int numOfPartInstance = 0;
-	double threadshold = 0.01;
+	double threadshold = 0.03;
 	Vector<Integer> partInstance = new Vector<Integer>();
 	Vector<Integer> partLength = new Vector<Integer>();
 	Vector<Integer> Instance = new Vector<Integer>();
@@ -35,15 +35,16 @@ public class LabelingScreen {
 		int width = 0;
 	    int height = 100;
 		int totalWidth = 1200;
+		int widthShift = 40;
 
 		JFrame f=new JFrame("JLabel1");
 	    f.setSize(totalWidth+80,height+250);
 	    f.setLocationRelativeTo(null);
 	    f.setVisible(true);
 	    f.getContentPane().setLayout(null);
+	    int locationX = widthShift;
 	    
 	    JLabel[] labels = new JLabel[numOfPartInstance];
-	    int locationX = 40;
 	    for(int i=0; i<numOfPartInstance; i++){
 	    	int cluId = partInstance.get(i);
 	    	labels[i] = new JLabel(String.valueOf(cluId));
@@ -72,8 +73,55 @@ public class LabelingScreen {
 	    for(int i=0; i<numOfPartInstance; i++){
 	    	f.getContentPane().add(labels[i]);
 	    }
+	    int len = (int)(numOfAllInstance/60);
+	    System.out.println(len);
+	    JLabel[] times = new JLabel[len];
+	    locationX = widthShift;
+	    width = getMinuteLocation(60,totalWidth);
+	    for(int i=0,t=0; i<times.length; i++,t+=60){
+	    	System.out.println(locationX+", "+getMinute(t));
+	    	times[i] = new JLabel(getMinute(t));
+	    	times[i].setBounds(locationX, 5+height+10, width, 50);
+	    	times[i].setOpaque(true);
+	    	locationX += width;
+	    }
+	    for(int i=0; i<times.length; i++){
+	    	f.getContentPane().add(times[i]);
+	    }
+	    
+	    
 	    
 	    f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	}
+	
+	private int getMinuteLocation(int time, int totalWidth){
+		return (int)(((double)time/(double)numOfAllInstance)*totalWidth);
+	}
+	private String getMinute(int time){
+		String HHMM= "";
+		int minute = (int)(time/12);
+		int shitHout = 1;
+		if(minute>=60){
+			int hour = Math.round((minute/60)) + shitHout;
+			HHMM = String.valueOf(hour);
+			HHMM += ":";
+			minute = minute%60;
+			//HHMM += String.valueOf(minute%60);
+		}
+		else{
+			int hour = shitHout;
+			HHMM = String.valueOf(hour);
+			HHMM += ":";
+		}
+		if(minute<10){
+			HHMM += "0";
+			HHMM += String.valueOf(minute);
+		}
+		else{
+			HHMM += String.valueOf(minute);
+		}
+		
+		return HHMM;
 	}
 	
 	private Vector<Integer> getColor (int id){
