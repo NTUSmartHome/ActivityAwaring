@@ -81,7 +81,7 @@ public class LabelingScreen {
 	    for(int i=0,t=0; i<times.length; i++,t+=60){
 	    	System.out.println(locationX+", "+getMinute(t));
 	    	times[i] = new JLabel(getMinute(t));
-	    	times[i].setBounds(locationX, 5+height+10, width, 50);
+	    	times[i].setBounds(locationX, 5+height+1, width, 20);
 	    	times[i].setOpaque(true);
 	    	locationX += width;
 	    }
