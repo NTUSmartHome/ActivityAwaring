@@ -1,5 +1,9 @@
 package GUI;
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
@@ -26,6 +30,9 @@ public class LabelingScreen {
 	Vector<Integer> Instance = new Vector<Integer>();
 	Vector<Integer> TotalLength = new Vector<Integer>();
 	Vector<Double> InstanceRatio = new Vector<Double>();
+	
+	int[] listernId;
+	
 	public LabelingScreen(String path, String filename) {
 		Path = path;
 		iFile = filename;
@@ -40,18 +47,14 @@ public class LabelingScreen {
 		JFrame f=new JFrame("JLabel1");
 	    f.setSize(totalWidth+80,height+250);
 	    f.setLocationRelativeTo(null);
-	    f.setVisible(true);
+	    //f.setVisible(true);
 	    f.getContentPane().setLayout(null);
 	    int locationX = widthShift;
 	    
-	    JLabel[] labels = new JLabel[numOfPartInstance];
-	    DefaultComboBoxModel model = new DefaultComboBoxModel();
-	    JComboBox cb = new JComboBox(model);
-	    cb.setBounds(300, 50, 60, 200);
-	    model.addElement("請點選");
-	    model.addElement("選項1");
-	    model.addElement("選項2");
-	    model.addElement("選項3");
+
+	    
+	    locationX = widthShift;
+	    JLabel[] labels = new JLabel[numOfPartInstance];	    
 	    for(int i=0; i<numOfPartInstance; i++){
 	    	int cluId = partInstance.get(i);
 	    	labels[i] = new JLabel(String.valueOf(cluId));
@@ -78,7 +81,6 @@ public class LabelingScreen {
 	    	//labelLists[i] = new MenuBar();
 	    }
 	    
-	    f.getContentPane().add(cb);
 	    
 	    for(int i=0; i<numOfPartInstance; i++){
 	    	f.getContentPane().add(labels[i]);
@@ -95,13 +97,124 @@ public class LabelingScreen {
 	    	times[i].setOpaque(true);
 	    	locationX += width;
 	    }
+	    
 	    for(int i=0; i<times.length; i++){
 	    	f.getContentPane().add(times[i]);
 	    }
 	    
 	    
+
+	    String[] activityList = {"Sleep","Sweep","Meal","Walk","Exercise","Read","Watch TV","PlayPad"};
+	    int intervalSpace = 50;
+	    int locationY =  5+height+51;
+	    int listHeight = 30;
+	    width = 100;
+	    locationX = widthShift;
+	    JLabel[] labelHint = new JLabel[numOfColor];
+	    Choice[] labelList = new Choice[numOfColor];
+	    ItemListener[] listerner = new ItemListener[numOfColor];
+	    listernId = new int[numOfColor];
+	    
+	    for(int i=0,clu=0; i<numOfColor; i++){
+	    	if(locationX>totalWidth){
+	    		locationX = widthShift;
+	    		locationY += listHeight+10;
+	    	}
+	    	
+	    	labelHint[i] = new JLabel();
+	    	labelHint[i].setBounds(locationX-25, locationY, 20, 20);
+	    	
+	    	while(colorVectors.get(clu).size()<4){
+    			clu++;
+    		}
+	    	
+	    	int r = colorVectors.get(clu).get(0);
+	    	int g = colorVectors.get(clu).get(1);
+	    	int b = colorVectors.get(clu).get(2);
+	    	Color color = new Color(r,g,b);
+	    	clu++;
+	    	labelHint[i].setBackground(color);
+	    	labelHint[i].setOpaque(true);
+	    	f.getContentPane().add(labelHint[i]);
+	    	
+	    	
+	    	labelList[i] = new Choice();
+	    	labelList[i].setBounds(locationX,locationY, width, listHeight);
+	    	for(int j=0; j<activityList.length; j++){
+	    		labelList[i].addItem(activityList[j]);
+	    	}
+	    	listernId[i] = i;
+	    	listerner[i] = new ItemListener(){
+	            public void itemStateChanged(ItemEvent ie)
+	            {
+	            	String tmp = ie.getSource().toString().replace("[", "");
+	            	System.out.println(tmp);
+	            	String[] tmp1 = tmp.split("Choice");
+	            	System.out.println(tmp1[1]);
+	            	String[] tmp2 = tmp1[1].split(",");
+	            	int id = Integer.valueOf(tmp2[0]);
+	            	System.out.println("You selected id "+id+", it's seleted of " + ie.getItem());
+	            }
+	        }; 
+	    	labelList[i].setName(String.valueOf(i));
+	    	labelList[i].addItemListener(listerner[i]);
+	    	locationX += width + intervalSpace;
+	    	f.getContentPane().add(labelList[i]);
+	    }
+	    
+	    locationY += listHeight+10;
+	    
+	    JButton confirmLabelBtn = new JButton("Confirm");
+	    confirmLabelBtn.setBounds(totalWidth-100, locationY, 80, 30);
+	    confirmLabelBtn.setBackground(new Color(200,200,200));
+	    confirmLabelBtn.setOpaque(true);
+	    confirmLabelBtn.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				String tmp = e.getSource().toString().replace("[", "");
+            	System.out.println(tmp);
+            	System.out.println("You selected id "+tmp);
+            	
+            	for(int i=0; i<labelList.length; i++){
+            		String tmpQQ = labelList[i].getItem(0).toString();
+            		System.out.println(tmpQQ);
+            	}
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	    f.getContentPane().add(confirmLabelBtn);
+	    
+
+	    f.setSize(totalWidth+80,locationY+80);
 	    
 	    f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	    
+	    f.setVisible(true);
 	}
 	
 	private int getMinuteLocation(int time, int totalWidth){
@@ -116,7 +229,6 @@ public class LabelingScreen {
 			HHMM = String.valueOf(hour);
 			HHMM += ":";
 			minute = minute%60;
-			//HHMM += String.valueOf(minute%60);
 		}
 		else{
 			int hour = shitHout;
@@ -154,11 +266,8 @@ public class LabelingScreen {
 		for(int i=0; i<numOfColor; i++){
 			colorVectors.add(generateColor());
 		}
-		
 	}
 	
-	int count = 0;
-	int id = 0;
 	public Vector<Integer> generateColor(){
 		Vector<Integer> color = new Vector<Integer>();
 		Random random = new Random();
@@ -193,16 +302,7 @@ public class LabelingScreen {
 			else if(tmpAxisDis[2]<averageDis2 && tmpAxisDis[0]<averageDis2){
 				return true;
 			}
-			/*
-			if(tmpDis<minDis){
-				minDis = tmpDis;
-			}*/
 		}
-		
-		/*
-		if(minDis<averageDis){
-			return true;
-		}*/
 		
 		return false;
 	}	
