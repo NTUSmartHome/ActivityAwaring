@@ -1,8 +1,8 @@
 Sleep	1
-Sleep	0
+Read	0
 Sleep	20
 Sleep	3
-Sleep	5
+Meal	5
 Sleep	19
 Sleep	9
 Sleep	14

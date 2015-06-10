@@ -55,7 +55,6 @@ public class LabelingScreen {
 	    f.getContentPane().setLayout(null);
 	    int locationX = widthShift;
 	    
-	    // Build Color of each instance
 	    locationX = widthShift;
 	    JLabel[] labels = new JLabel[numOfPartInstance];	    
 	    for(int i=0; i<numOfPartInstance; i++){
