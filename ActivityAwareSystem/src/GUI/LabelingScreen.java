@@ -45,6 +45,13 @@ public class LabelingScreen {
 	    int locationX = widthShift;
 	    
 	    JLabel[] labels = new JLabel[numOfPartInstance];
+	    DefaultComboBoxModel model = new DefaultComboBoxModel();
+	    JComboBox cb = new JComboBox(model);
+	    cb.setBounds(300, 50, 60, 200);
+	    model.addElement("請點選");
+	    model.addElement("選項1");
+	    model.addElement("選項2");
+	    model.addElement("選項3");
 	    for(int i=0; i<numOfPartInstance; i++){
 	    	int cluId = partInstance.get(i);
 	    	labels[i] = new JLabel(String.valueOf(cluId));
@@ -68,7 +75,10 @@ public class LabelingScreen {
 	    	System.out.println("\tLoacted at "+ locationX);
 	    	labels[i].setOpaque(true);
 	    	
+	    	//labelLists[i] = new MenuBar();
 	    }
+	    
+	    f.getContentPane().add(cb);
 	    
 	    for(int i=0; i<numOfPartInstance; i++){
 	    	f.getContentPane().add(labels[i]);
