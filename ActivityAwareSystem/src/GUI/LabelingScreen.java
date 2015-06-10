@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 import java.util.Vector;
@@ -24,18 +25,20 @@ public class LabelingScreen {
 	int numOfColor = 0;
 	int numOfAllInstance = 0;
 	int numOfPartInstance = 0;
-	double threadshold = 0.03;
+	double threshold = 0.03;
 	Vector<Integer> partInstance = new Vector<Integer>();
 	Vector<Integer> partLength = new Vector<Integer>();
 	Vector<Integer> Instance = new Vector<Integer>();
 	Vector<Integer> TotalLength = new Vector<Integer>();
 	Vector<Double> InstanceRatio = new Vector<Double>();
 	
-	int[] listernId;
+	Choice[] labelList;
 	
-	public LabelingScreen(String path, String filename) {
+	
+	public LabelingScreen(String path, String filename, double dropThreshold) {
 		Path = path;
 		iFile = filename;
+		threshold = dropThreshold;
 		loadResult();
 		generateInstance();
 		
@@ -43,177 +46,134 @@ public class LabelingScreen {
 	    int height = 100;
 		int totalWidth = 1200;
 		int widthShift = 40;
-
+		int locationY =  5;
+		
+		// Build Frame Window
 		JFrame f=new JFrame("JLabel1");
 	    f.setSize(totalWidth+80,height+250);
 	    f.setLocationRelativeTo(null);
-	    //f.setVisible(true);
 	    f.getContentPane().setLayout(null);
 	    int locationX = widthShift;
 	    
-	    
+	    // Build Color of each instance
 	    locationX = widthShift;
 	    JLabel[] labels = new JLabel[numOfPartInstance];	    
 	    for(int i=0; i<numOfPartInstance; i++){
-	    	int cluId = partInstance.get(i);
-	    	labels[i] = new JLabel(String.valueOf(cluId));
+	    	labels[i] = new JLabel("");
 	    	
 	    	width = (int)((partLength.get(i)*totalWidth)/numOfAllInstance);
-	    	//width += 5;
-	    	System.out.println("\tWidth is "+ width);
-	    	
-    		labels[i].setBounds(locationX, 5, width, height);
+    		labels[i].setBounds(locationX, locationY, width, height);
 
-	    	locationX += width;
-	    	Vector<Integer> getcolor = getColor(cluId);
-	    	int r = getcolor.get(0);
-	    	int g = getcolor.get(1);
-	    	int b = getcolor.get(2);
-	    	Color color = new Color(r,g,b);
+	    	Color color = getColor(partInstance.get(i));
 	    	labels[i].setBackground(color);
-	    	
-			System.out.print(cluId+" in this part of length:"+width+" and its rgb is "+r+","+g+","+b+"\n");
-
-	    	System.out.println("\tLoacted at "+ locationX);
 	    	labels[i].setOpaque(true);
 	    	
-	    }
-	    
-	    
-	    for(int i=0; i<numOfPartInstance; i++){
 	    	f.getContentPane().add(labels[i]);
-	    }
-	    int len = (int)(numOfAllInstance/60);
-	    System.out.println(len);
-	    JLabel[] times = new JLabel[len];
-	    locationX = widthShift;
-	    width = getMinuteLocation(60,totalWidth);
-	    for(int i=0,t=0; i<times.length; i++,t+=60){
-	    	System.out.println(locationX+", "+getMinute(t));
-	    	times[i] = new JLabel(getMinute(t));
-	    	times[i].setBounds(locationX, 5+height+1, width, 20);
-	    	times[i].setOpaque(true);
+	    	
 	    	locationX += width;
 	    }
 	    
-	    for(int i=0; i<times.length; i++){
+	    // Build Timestamp label
+	    int len = (int)(numOfAllInstance/60);
+	    JLabel[] times = new JLabel[len];
+	    locationX = widthShift;
+	    locationY += height+1;
+	    width = getMinuteLocation(60,totalWidth);
+	    for(int i=0,t=0; i<times.length; i++,t+=60){
+	    	times[i] = new JLabel(getMinute(t));
+	    	times[i].setBounds(locationX, locationY, width, 20);
+	    	times[i].setOpaque(true);
+
 	    	f.getContentPane().add(times[i]);
+	    	
+	    	locationX += width;
 	    }
 	    
-	    
-
-	    String[] activityList = {"Sleep","Sweep","Meal","Walk","Exercise","Read","Watch TV","PlayPad"};
+	    // Build Labeling List (awt.choice)
+	    String[] activityList = {"Sleep","Sweep","Meal","Walk","Exercise","Read","WatchTV","PlayPad"};
 	    int intervalSpace = 50;
-	    int locationY =  5+height+51;
 	    int listHeight = 30;
 	    width = 100;
 	    locationX = widthShift;
+	    locationY += 50;
 	    JLabel[] labelHint = new JLabel[numOfColor];
-	    Choice[] labelList = new Choice[numOfColor];
+	    labelList = new Choice[numOfColor];
 	    ItemListener[] listerner = new ItemListener[numOfColor];
-	    listernId = new int[numOfColor];
-	    
-	    for(int i=0,clu=0; i<numOfColor; i++){
+	    for(int i=0; i<numOfColor; i++){
+	    	// if lists are larger than window size, it should move to next row
 	    	if(locationX>totalWidth){
 	    		locationX = widthShift;
 	    		locationY += listHeight+10;
 	    	}
-	    	
+	    	// Add color hint for each high ratio cluster
 	    	labelHint[i] = new JLabel();
 	    	labelHint[i].setBounds(locationX-25, locationY, 20, 20);
 	    	
-	    	while(colorVectors.get(clu).size()<4){
-    			clu++;
-    		}
-	    	
-	    	int r = colorVectors.get(clu).get(0);
-	    	int g = colorVectors.get(clu).get(1);
-	    	int b = colorVectors.get(clu).get(2);
+	    	int r = colorVectors.get(i).get(0);
+	    	int g = colorVectors.get(i).get(1);
+	    	int b = colorVectors.get(i).get(2);
 	    	Color color = new Color(r,g,b);
-	    	clu++;
 	    	labelHint[i].setBackground(color);
 	    	labelHint[i].setOpaque(true);
+	    	
 	    	f.getContentPane().add(labelHint[i]);
 	    	
-	    	
+	    	// Add label list for each high ratio cluster
 	    	labelList[i] = new Choice();
-	    	labelList[i].setBounds(locationX,locationY, width, listHeight);
+	    	labelList[i].setBounds(locationX, locationY, width, listHeight);
 	    	for(int j=0; j<activityList.length; j++){
 	    		labelList[i].addItem(activityList[j]);
 	    	}
-	    	listernId[i] = i;
-	    	listerner[i] = new ItemListener(){
-	            public void itemStateChanged(ItemEvent ie)
-	            {
-	            	String tmp = ie.getSource().toString().replace("[", "");
-	            	System.out.println(tmp);
-	            	String[] tmp1 = tmp.split("Choice");
-	            	System.out.println(tmp1[1]);
-	            	String[] tmp2 = tmp1[1].split(",");
-	            	int id = Integer.valueOf(tmp2[0]);
-	            	System.out.println("You selected id "+id+", it's seleted of " + ie.getItem());
-	            }
-	        }; 
-	    	labelList[i].setName(String.valueOf(i));
-	    	labelList[i].addItemListener(listerner[i]);
 	    	locationX += width + intervalSpace;
+	    	
 	    	f.getContentPane().add(labelList[i]);
 	    }
 	    
+	    // Add confirm button 
 	    locationY += listHeight+10;
-	    
 	    JButton confirmLabelBtn = new JButton("Confirm");
 	    confirmLabelBtn.setBounds(totalWidth-100, locationY, 80, 30);
 	    confirmLabelBtn.setBackground(new Color(200,200,200));
 	    confirmLabelBtn.setOpaque(true);
 	    confirmLabelBtn.addMouseListener(new MouseListener() {
-			
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				// TODO Auto-generated method stub
-				String tmp = e.getSource().toString().replace("[", "");
-            	System.out.println(tmp);
-            	System.out.println("You selected id "+tmp);
-            	
-            	for(int i=0; i<labelList.length; i++){
-            		String tmpQQ = labelList[i].getItem(0).toString();
-            		System.out.println(tmpQQ);
-            	}
+            	try {
+            		new File(Path+"/SVM").mkdirs();
+					FileWriter fw = new FileWriter(Path+"/SVM/"+"LabeledResult.txt");
+					for(int i=0; i<labelList.length; i++){
+	            		String labeledResult = labelList[i].getSelectedItem();
+	            		int id = colorVectors.get(i).get(3);
+	            		fw.write(labeledResult+"\t"+id+"\r\n");
+	            	}
+					fw.flush();
+					fw.close();
+					
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
-			
 			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
+			public void mousePressed(MouseEvent e) {}
 			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
+			public void mouseExited(MouseEvent e) {}
 			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
+			public void mouseEntered(MouseEvent e) {}
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void mouseClicked(MouseEvent e) {}
 		});
+	    
 	    f.getContentPane().add(confirmLabelBtn);
-	    
 
+	    // Set window size
 	    f.setSize(totalWidth+80,locationY+80);
-	    
 	    f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-	    
 	    f.setVisible(true);
 	}
+	
+	
 	
 	private int getMinuteLocation(int time, int totalWidth){
 		return (int)(((double)time/(double)numOfAllInstance)*totalWidth);
@@ -244,19 +204,22 @@ public class LabelingScreen {
 		return HHMM;
 	}
 	
-	private Vector<Integer> getColor (int id){
+	private Color getColor (int id){
 		Vector<Integer> color = new Vector<Integer>();
+		int[] rgb = new int[3];
 		for(int i=0; i<3; i++){
+			rgb[i] = 255;
 			color.add(255);
 		}
 		for(int i=0; i<colorVectors.size(); i++){
 			if(id == colorVectors.get(i).get(3)){
 				for (int j = 0; j < 3; j++) {
 					color.set(j, colorVectors.get(i).get(j));
+					rgb[j] = colorVectors.get(i).get(j);
 				}
 			}
 		}
-		return color;
+		return new Color(rgb[0],rgb[1],rgb[2]);
 	}
 	
 	
@@ -277,16 +240,14 @@ public class LabelingScreen {
 		}
 		return color;
 	}
+	
 	private boolean compareSimilar(Vector<Integer> color){
-		int minDis = 800;
 		int averageDis = (int)(200/numOfColor);
 		int averageDis2 = (int)(200/(numOfColor*2/3));
 		for(int i=0; i<colorVectors.size(); i++){
-			int tmpDis = 0; 
 			int[] tmpAxisDis = new int[3];
 			for(int j=0; j<3; j++){
 				tmpAxisDis[j] =Math.abs(colorVectors.get(i).get(j)-color.get(j)); 
-				tmpDis += tmpAxisDis[j];
 			}
 			if(tmpAxisDis[2]<averageDis && tmpAxisDis[2]<averageDis && tmpAxisDis[0]<averageDis){
 				return true;
@@ -301,7 +262,6 @@ public class LabelingScreen {
 				return true;
 			}
 		}
-		
 		return false;
 	}	
 
@@ -325,22 +285,20 @@ public class LabelingScreen {
 		numOfClu = Instance.size();
 		for(int i=0; i<Instance.size(); i++){
 			InstanceRatio.add((double)TotalLength.get(i)/numOfAllInstance);
-			System.out.println(Instance.get(i)+"'s ratio is "+InstanceRatio.get(i));
 		}
 		for(int i=0; i<Instance.size(); i++){
-			if(InstanceRatio.get(i)>threadshold){
+			if(InstanceRatio.get(i)>threshold){
 				numOfColor++;
 			}
 		}
-		System.out.println("Number of Color is "+(numOfColor+1));
+		
 		generateAllColor();
 		
 		for(int i=0,j=0; i<Instance.size(); i++){
-			if(InstanceRatio.get(i)>threadshold){
+			if(InstanceRatio.get(i)>threshold){
 				colorVectors.get(j).add(Instance.get(i));
 				j++;
 			}
-			
 		}
 	}
 	
