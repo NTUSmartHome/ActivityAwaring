@@ -32,8 +32,11 @@ public class LabelingScreen {
 	Vector<Integer> TotalLength = new Vector<Integer>();
 	Vector<Double> InstanceRatio = new Vector<Double>();
 	
-	Choice[] labelList;
+	Vector<Vector<String>> eachInstanceFeature = new Vector<Vector<String>>();
+	Vector<Integer> eachInstanceClu = new Vector<Integer>();
 	
+	Choice[] labelList;
+	String[] labelStr;
 	
 	public LabelingScreen(String path, String filename, double dropThreshold) {
 		Path = path;
@@ -139,13 +142,39 @@ public class LabelingScreen {
 			public void mouseReleased(MouseEvent e) {
 				// TODO Auto-generated method stub
             	try {
+            		String[] labelStr = new String[numOfClu];
+            		boolean[] labelClu = new boolean[numOfClu];
+            		for(int i=0; i<labelClu.length; i++) labelClu[i] = false;
+            		
             		new File(Path+"/SVM").mkdirs();
 					FileWriter fw = new FileWriter(Path+"/SVM/"+"LabeledResult.txt");
 					for(int i=0; i<labelList.length; i++){
-	            		String labeledResult = labelList[i].getSelectedItem();
 	            		int id = colorVectors.get(i).get(3);
-	            		fw.write(labeledResult+"\t"+id+"\r\n");
+	            		labelClu[id] = true;
+	            		String labelResult = labelList[i].getSelectedItem().toString();
+	            		labelStr[id] = labelResult;
 	            	}
+					for(int i=0; i<labelClu.length; i++){
+						if(!labelClu[i]){
+							labelStr[i] = "NotForTrain";
+						}
+					}
+					/*
+					for(int i=0; i<labelClu.length; i++){
+						fw.write(labelStr[i]+"\t"+String.valueOf(i)+"\r\n");
+					}
+					fw.flush();
+					fw.close();
+					*/
+					for(int i=0; i<eachInstanceClu.size(); i++){
+						int cluId = eachInstanceClu.get(i);
+						if(labelClu[cluId]){
+							for(int j=0; j<eachInstanceFeature.get(i).size(); j++){
+								fw.write(eachInstanceFeature.get(i).get(j)+",");
+							}
+							fw.write(labelStr[cluId]+"\r\n");
+						}
+					}
 					fw.flush();
 					fw.close();
 					
@@ -303,15 +332,17 @@ public class LabelingScreen {
 	
 	public void loadResult(){
 		new File(Path+"/DPMM").mkdirs();
-		FileReader fr;
 		try {
-			fr = new FileReader(Path+"/DPMM/"+iFile);
+			FileReader fr = new FileReader(Path+"/DPMM/"+iFile+"Result");
 			BufferedReader br = new BufferedReader(fr);
+			FileReader frF = new FileReader(Path+"/Features/"+iFile+"Feature.txt");
+			BufferedReader brF = new BufferedReader(frF);
 			String line = "";
 			int preClu = -1;
 			while((line = br.readLine())!=null){
-				String[] instanceStr = line.split("	");
-				int clu = Integer.valueOf(instanceStr[1]);
+				// load cluster info
+				String[] instanceResultStr = line.split("	");
+				int clu = Integer.valueOf(instanceResultStr[1]);
 				if(clu!=preClu){
 					partInstance.add(clu);
 					partLength.add(1);
@@ -322,8 +353,21 @@ public class LabelingScreen {
 					partLength.set(index,len);
 				}
 				preClu = clu;
+				
+				// load instance info
+				line = brF.readLine();
+				String[] instanceStr = line.split(",");
+				Vector<String> feature = new Vector<String>();
+				for(int i=0; i<(instanceStr.length-1); i++){
+					feature.add(instanceStr[i]);
+				}
+				eachInstanceFeature.add(feature);
+				eachInstanceClu.add(clu);
 			}
-			
+			fr.close();
+			br.close();
+			frF.close();
+			brF.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
