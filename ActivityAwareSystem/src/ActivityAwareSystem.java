@@ -12,6 +12,8 @@ import javax.print.DocFlavor;
 import org.apache.commons.collections4.Factory;
 import org.apache.commons.collections4.Get;
 
+import com.datumbox.framework.machinelearning.classification.SupportVectorMachineTrain;
+
 import dpmm.GDPMMOnline;
 import dpmm.MDPMMOnline;
 import wearable.SwingMotionFeatureExtration;
@@ -30,6 +32,7 @@ public class ActivityAwareSystem{
 		boolean Train= false;
 		boolean Online = false;
 		boolean Label = true;
+		boolean SVM = false;
 		String Path = "5.20.MingJe_v1";
 		int timewindow = 60;
 		int overlap = 55;
@@ -38,6 +41,9 @@ public class ActivityAwareSystem{
 		}
 		if(Label){
 			new LabelingScreen(Path,"WA",0.03);
+		}
+		if(SVM){
+			SupportVectorMachineTrain SVMModel = new SupportVectorMachineTrain(Path,"SVM");
 		}
 		if(Online){
 			SocketServer server = new SocketServer();

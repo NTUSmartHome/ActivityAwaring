@@ -182,6 +182,7 @@ public abstract class BaseMLmodel<MP extends BaseMLmodel.ModelParameters, TP ext
     String Modelname = "";
     public void setModelname(String dataset){
     		Modelname = dataset;
+    		System.out.println("Set model name:"+Modelname);
     }
     
     
@@ -225,6 +226,7 @@ public abstract class BaseMLmodel<MP extends BaseMLmodel.ModelParameters, TP ext
             knowledgeBase.setValidationMetrics(validationMetrics);
 
         }
+        System.out.println("after validateModel()");
          
         /*
         //store database if not temporary model
@@ -235,11 +237,13 @@ public abstract class BaseMLmodel<MP extends BaseMLmodel.ModelParameters, TP ext
             knowledgeBase.save(true);
         }
         */
+        
         System.out.println("Saving model: "+Modelname);
         knowledgeBase.setModelnameForTrainable(Modelname);
         knowledgeBase.save(true);
         
         knowledgeBase.setTrained(true);
+        
     }
     
     

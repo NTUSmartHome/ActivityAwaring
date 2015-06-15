@@ -147,32 +147,51 @@ public class LabelingScreen {
             		for(int i=0; i<labelClu.length; i++) labelClu[i] = false;
             		
             		new File(Path+"/SVM").mkdirs();
-					FileWriter fw = new FileWriter(Path+"/SVM/"+"LabeledResult.txt");
+					FileWriter fw = new FileWriter(Path+"/Features/"+"SVMFeature.txt");
 					for(int i=0; i<labelList.length; i++){
 	            		int id = colorVectors.get(i).get(3);
 	            		labelClu[id] = true;
 	            		String labelResult = labelList[i].getSelectedItem().toString();
 	            		labelStr[id] = labelResult;
 	            	}
-					for(int i=0; i<labelClu.length; i++){
-						if(!labelClu[i]){
-							labelStr[i] = "NotForTrain";
-						}
-					}
-					/*
-					for(int i=0; i<labelClu.length; i++){
-						fw.write(labelStr[i]+"\t"+String.valueOf(i)+"\r\n");
-					}
-					fw.flush();
-					fw.close();
-					*/
 					for(int i=0; i<eachInstanceClu.size(); i++){
 						int cluId = eachInstanceClu.get(i);
 						if(labelClu[cluId]){
+							//fw.write(labelStr[cluId]+" ");
+							fw.write(cluId+" ");
 							for(int j=0; j<eachInstanceFeature.get(i).size(); j++){
-								fw.write(eachInstanceFeature.get(i).get(j)+",");
+								fw.write(j+":"+eachInstanceFeature.get(i).get(j)+" ");
 							}
-							fw.write(labelStr[cluId]+"\r\n");
+							fw.write("\r\n");
+						}
+					}
+					fw.flush();
+					fw.close();
+					
+					fw = new FileWriter(Path+"/Features/"+"SVMTest.txt");
+					for(int i=0; i<labelList.length; i++){
+	            		int id = colorVectors.get(i).get(3);
+	            		labelClu[id] = true;
+	            		String labelResult = labelList[i].getSelectedItem().toString();
+	            		labelStr[id] = labelResult;
+	            	}
+					for(int i=0; i<eachInstanceClu.size(); i++){
+						int cluId = eachInstanceClu.get(i);
+						if(labelClu[cluId]){
+							//fw.write(labelStr[cluId]+" ");
+							fw.write(cluId+" ");
+							for(int j=0; j<eachInstanceFeature.get(i).size(); j++){
+								fw.write(j+":"+eachInstanceFeature.get(i).get(j)+" ");
+							}
+							fw.write("\r\n");
+						}
+						if(!labelClu[cluId]){
+							//fw.write(labelStr[cluId]+" ");
+							fw.write(0+" ");
+							for(int j=0; j<eachInstanceFeature.get(i).size(); j++){
+								fw.write(j+":"+eachInstanceFeature.get(i).get(j)+" ");
+							}
+							fw.write("\r\n");
 						}
 					}
 					fw.flush();

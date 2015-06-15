@@ -26,15 +26,18 @@ import com.datumbox.framework.machinelearning.common.bases.mlmodels.BaseMLclassi
 import com.datumbox.common.persistentstorage.interfaces.BigDataStructureMarker;
 import com.datumbox.configuration.GeneralConfiguration;
 import com.datumbox.framework.statistics.descriptivestatistics.Descriptives;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
 import libsvm.svm;
 import libsvm.svm_model;
 import libsvm.svm_node;
 import libsvm.svm_parameter;
 import libsvm.svm_print_interface;
 import libsvm.svm_problem;
+
 import org.mongodb.morphia.annotations.PostLoad;
 import org.mongodb.morphia.annotations.PrePersist;
 import org.mongodb.morphia.annotations.Transient;
@@ -173,12 +176,18 @@ public class SupportVectorMachine extends BaseMLclassifier<SupportVectorMachine.
     public SupportVectorMachine(String dbName) {
         super(dbName, SupportVectorMachine.ModelParameters.class, SupportVectorMachine.TrainingParameters.class, SupportVectorMachine.ValidationMetrics.class);
     }
-    
-    
+    /*
+    String Modelname = "";
+    public void setModelname(String dataset){
+		Modelname = dataset;
+		System.out.println("Set model name:"+Modelname);
+    }
+    */
     @Override
     public void train(Dataset trainingData, Dataset validationData) {
         knowledgeBase.getTrainingParameters().getSvmParameter().probability=1; //probabilities are required from the algorithm
         super.train(trainingData, validationData);
+        System.out.println("after train");
     }
     
     @Override
