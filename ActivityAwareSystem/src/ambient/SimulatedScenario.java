@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Random;
 import java.util.Vector;
 
 import elements.AmbientFeature;
@@ -21,6 +22,7 @@ public class SimulatedScenario {
 	private String Path;
 	private String IFilename;
 	
+	private String Kitchen = "Kitchen";
 	private String Livingroom = "Livingroom";
 	private String Studyingroom = "Studyingroom";
 	private String Bedroom = "Bedroom";
@@ -116,46 +118,135 @@ public class SimulatedScenario {
 		Instances.add(instance);
 		//F.init();
 	}
+	int count = 0;
 	
 	private void setScenario(String label){
+		Random random = new Random();
+		double r = (double)(random.nextInt(1000))/1000;
+		//System.out.println(r);
 		switch (label) {
 		case "Exercise":
-			F.set(Studyingroom, 1);
-			F.set(Studyingroom, Light, true);
+			if(r<0.97){
+				F.set(Livingroom, 1);
+				F.set(Livingroom, Light, true);
+			}
+			else{
+				F.set(Studyingroom, 1);
+				F.set(Livingroom, Light, true);
+			}
 			break;
 		case "Sweep":
-			F.set(Studyingroom, 1);
-			F.set(Studyingroom, Light, true);
+			if(r<0.94){
+				F.set(Studyingroom, 1);
+				F.set(Studyingroom, Light, true);
+			}
+			else if(r<0.98){
+				F.set(Livingroom, 1);
+				F.set(Studyingroom, Light, true);
+			}
+			else {
+				F.set(Kitchen, 1);
+				F.set(Studyingroom, Light, true);
+			}
 			break;
 		case "Walk":
-			F.set(Studyingroom, 1);
-			F.set(Studyingroom, Light, true);
 			break;
 		case "Meal":
-			F.set(Livingroom, 1);
-			F.set(Livingroom, Light, true);
+			if(r<0.96){
+				F.set(Livingroom, 1);
+				F.set(Livingroom, Light, true);
+			}
+			else{
+				F.set(Kitchen, 1);
+				F.set(Kitchen, Light, true);
+			}
 			break;
 		case "PlayPad":
-			F.set(Livingroom, 1);
-			F.set(Livingroom, Light, true);
-			F.set(Movable, Pad, true);
+			if(r<0.98){
+				F.set(Studyingroom, 1);
+				F.set(Studyingroom, Light, true);
+				F.set(Movable, Pad, true);
+			}
+			else{
+				F.set(Studyingroom, 1);
+				F.set(Studyingroom, Light, true);
+				//F.set(Movable, Pad, true);
+			}
 			break;
 		case "WatchTV":
-			F.set(Livingroom, 1);
-			F.set(Livingroom, Light, true);
-			F.set(Livingroom, TV, true);
+			if(r<0.98){
+				F.set(Livingroom, 1);
+				F.set(Livingroom, Light, true);
+				F.set(Livingroom, TV, true);
+			}
+			else if(r<0.993){
+				F.set(Livingroom, 1);
+				F.set(Livingroom, Light, true);
+			}
+			else{
+				F.set(Studyingroom, 1);
+				F.set(Livingroom, Light, true);
+			}
 			break;
 		case "Read":
-			F.set(Livingroom, 1);
-			F.set(Livingroom, Light, true);
-			F.set(Livingroom, Lamp, true);
+			count++;
+			if(count<63){
+				F.set(Livingroom, 1);
+				F.set(Livingroom, Light, true);
+				F.set(Livingroom, Lamp, true);
+			}
+			else{
+				F.set(Studyingroom, 1);
+				F.set(Studyingroom, Light, true);
+			}
 			break;
 		case "Sleep":
-			F.set(Bedroom, 1);
+			if(r<0.97){
+				F.set(Bedroom, 1);
+				F.set(Livingroom, Light, true);
+			}
+			else{
+			}
+			break;
+		case "WashDishes":
+			if(r<0.97){
+				F.set(Kitchen, 1);
+				F.set(Kitchen, Light, true);
+			}
+			else{
+				//F.set(Kitchen, 1);
+				F.set(Kitchen, Light, true);
+			}
 			break;
 		case "Other":
-			F.set(Livingroom, 1);
-			F.set(Livingroom, Light, true);
+			
+			if(r<0.1){
+				F.set(Livingroom, Light, true);
+			}
+			else if(r<0.2){
+				F.set(Kitchen, Light, true);
+			}
+			else if(r<0.3){
+			}
+			else if(r<0.4){
+				F.set(Studyingroom, Light, true);
+			}
+			else if(r<0.5){
+				F.set(Livingroom, Light, true);
+				F.set(Livingroom, TV, true);
+			}else if(r<0.6){
+				F.set(Studyingroom, Light, true);
+				F.set(Movable, Pad, true);
+			}
+			else if(r<0.7){
+				F.set(Livingroom, Light, true);
+			}
+			else if(r<0.8){
+				F.set(Studyingroom, Light, true);
+			}
+			else if(r<0.9){
+				F.set(Livingroom, Light, true);
+			}
 			break;
 		default:
 			break;

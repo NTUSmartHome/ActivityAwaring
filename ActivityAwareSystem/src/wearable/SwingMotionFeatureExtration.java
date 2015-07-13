@@ -207,23 +207,30 @@ public class SwingMotionFeatureExtration {
 			BufferedReader br = new BufferedReader(fr);
 			String line = "";
 			try {
+				int count = 0;
 				while((line = br.readLine())!=null){
-					
-					if(line.contains("T")){
+					if(line.contains("Label")){
+						System.out.println(line);
+						//line = br.readLine();
 						
-						line = br.readLine();
-						
-						if(!line.contains("L"))
+						/*if(!line.contains("L"))
 							for(int i=0; i<9; i++) line = br.readLine();
-						else{
+						else{*/
 							readLine(line);
 							for(int i=0; i<9; i++){ 
 								line = br.readLine();
+								//System.out.println(line);
+								//if(!line.contains("T"))
 								readLine(line);
 								//System.out.println(line);
 							}
-						}
+						//}
 					}
+					else{
+						
+					}
+					
+					count++;
 				}
 				br.close();
 				fr.close();
@@ -404,7 +411,8 @@ public class SwingMotionFeatureExtration {
 				O.addP(Double.valueOf(value[i]));
 			}
 		}else if(str[0].contains("R")){
-			String[] tmp = str[1].split(";");
+			String[] flipT = str[1].split("T");
+			String[] tmp = flipT[0].split(";");
 			String[] value = tmp[0].split(",");
 			int len = value.length;
 			for(int i=0; i<len; i++){

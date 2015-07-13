@@ -92,7 +92,7 @@ public class LabelingScreen {
 	    }
 	    
 	    // Build Labeling List (awt.choice)
-	    String[] activityList = {"Sleep","Sweep","Meal","Walk","Exercise","Read","WatchTV","PlayPad"};
+	    String[] activityList = {"Sleep","Sweep","Meal","Walk","Exercise","ReadBook","ReadNewspaper","WatchTV","PlayPad","WashDishes","GoOut"};
 	    int intervalSpace = 50;
 	    int listHeight = 30;
 	    width = 100;
@@ -158,10 +158,14 @@ public class LabelingScreen {
 						int cluId = eachInstanceClu.get(i);
 						if(labelClu[cluId]){
 							//fw.write(labelStr[cluId]+" ");
-							fw.write(cluId+" ");
+							/*fw.write(cluId+" ");
 							for(int j=0; j<eachInstanceFeature.get(i).size(); j++){
 								fw.write(j+":"+eachInstanceFeature.get(i).get(j)+" ");
+							}*/
+							for(int j=0; j<eachInstanceFeature.get(i).size(); j++){
+								fw.write(eachInstanceFeature.get(i).get(j)+",");
 							}
+							fw.write(labelStr[cluId]);
 							fw.write("\r\n");
 						}
 					}
@@ -350,9 +354,9 @@ public class LabelingScreen {
 	}
 	
 	public void loadResult(){
-		new File(Path+"/DPMM").mkdirs();
+		new File(Path+"/BasedClustering").mkdirs();
 		try {
-			FileReader fr = new FileReader(Path+"/DPMM/"+iFile+"Result");
+			FileReader fr = new FileReader(Path+"/BasedClustering/"+iFile+"Result");
 			BufferedReader br = new BufferedReader(fr);
 			FileReader frF = new FileReader(Path+"/Features/"+iFile+"Feature.txt");
 			BufferedReader brF = new BufferedReader(frF);

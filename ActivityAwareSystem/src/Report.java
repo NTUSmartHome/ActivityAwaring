@@ -36,7 +36,7 @@ public class Report {
 	
 	public void loadExpResult(){
 		try {
-			FileReader fr = new FileReader(Path+"/DPMM/"+IFileName);
+			FileReader fr = new FileReader(Path+"/DPMM/" + IFileName);
 			BufferedReader br = new BufferedReader(fr);
 			String line = "";
 			try {
@@ -102,6 +102,21 @@ public class Report {
 			}
 			fw.flush();
 			fw.close();
+			
+			fw = new FileWriter(Path+"/Report/"+"ForExacel_"+OFileName);		
+			for(int j=0; j<L.size(); j++){
+				fw.write(L.get(j));
+				for(int i=0; i<maxCluNum; i++){
+					int cluElementNum = CluElementNum.get(i);
+					if(cluElementNum!=0){
+						fw.write(","+CLUSTER.get(j, i));
+					}
+				}
+				fw.write("\r\n");
+			}
+			fw.flush();
+			fw.close();
+			
 			existCluNum = cluNum;
 			
 		} catch (IOException e) {

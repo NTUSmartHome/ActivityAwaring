@@ -10,6 +10,7 @@ public class Label {
 		LABEL.add("Sweep");
 		LABEL.add("Walk");
 		LABEL.add("Meal");
+		//LABEL.add("WearShoes");
 		LABEL.add("WashDishes");
 		LABEL.add("PlayPad");
 		LABEL.add("WatchTV");

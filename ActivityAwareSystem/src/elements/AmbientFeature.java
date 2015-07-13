@@ -6,10 +6,12 @@ public class AmbientFeature {
 	private Vector<String> Room = new Vector<String>();
 	private Vector<Vector<String>>People = new Vector<Vector<String>>();
 	private Vector<Vector<String>> Appliances = new Vector<Vector<String>>();
+	private String Kitchen = "Kitchen";
 	private String Livingroom = "Livingroom";
 	private String Studyingroom = "Studyingroom";
 	private String Bedroom = "Bedroom";
 	private String Movable = "Movable";
+	private String Microwave = "Microwave";
 	private String Pad = "Pad";
 	private String TV = "TV";
 	private String Light = "Light";
@@ -27,6 +29,7 @@ public class AmbientFeature {
 		initLiving();
 		initStudying();
 		initBedroom();
+		initKitchen();
 		initMovable();
 	}
 
@@ -89,6 +92,25 @@ public class AmbientFeature {
 		appliance.add(Light);
 		appliance.add(off);
 		appliance.add(Bedroom);
+		Appliances.add(appliance);
+		
+	}
+	public void initKitchen(){
+		Vector<String> people = new Vector<String>();
+		people.add("0");
+		people.add(Kitchen);
+		People.add(people);
+		
+		Vector<String> appliance = new Vector<String>();
+		appliance.add(Light);
+		appliance.add(off);
+		appliance.add(Kitchen);
+		Appliances.add(appliance);
+		
+		appliance = new Vector<String>();
+		appliance.add(Microwave);
+		appliance.add(off);
+		appliance.add(Kitchen);
 		Appliances.add(appliance);
 		
 	}

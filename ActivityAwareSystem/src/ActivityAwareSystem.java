@@ -24,23 +24,21 @@ import elements.FileFormat;
 
 
 public class ActivityAwareSystem{
-	
-	
-	
-	
 	public static void main(String args[]) {
 		boolean Train= false;
 		boolean Online = false;
 		boolean Label = true;
 		boolean SVM = false;
-		String Path = "5.20.MingJe_v1";
+		String Path = "7.08.MingJe_v1";
+		//String Path = "7.08.YaHung_v1";
+		//String Path = "7.07.MingJe_v1";
 		int timewindow = 60;
-		int overlap = 55;
+		int overlap =55;
 		if(Train){
 			new BuildModel(Path, timewindow, overlap);
 		}
 		if(Label){
-			new LabelingScreen(Path,"WA",0.03);
+			new LabelingScreen(Path,"WA",0);
 		}
 		if(SVM){
 			SupportVectorMachineTrain SVMModel = new SupportVectorMachineTrain(Path,"SVM");
