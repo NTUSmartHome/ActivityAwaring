@@ -190,7 +190,7 @@ public class SimulatedScenario {
 			break;
 		case "Read":
 			count++;
-			if(count<63){
+			if(count<75){
 				F.set(Livingroom, 1);
 				F.set(Livingroom, Light, true);
 				F.set(Livingroom, Lamp, true);

@@ -1,0 +1,2 @@
+Number of Clusters:20
+Number of Features:68

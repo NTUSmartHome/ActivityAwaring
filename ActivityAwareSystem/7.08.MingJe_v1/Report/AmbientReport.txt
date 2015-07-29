@@ -1,0 +1,104 @@
+c1, 85
+Exercise  : 0.0   %,		0
+Sweep     : 2.35  %,		2
+Walk      : 0.0   %,		0
+Meal      : 0.0   %,		0
+WashDishes: 7.06  %,		6
+PlayPad   : 0.0   %,		0
+WatchTV   : 81.18 %,		69
+Read      : 0.0   %,		0
+Sleep     : 0.0   %,		0
+Other     : 9.41  %,		8
+
+
+c2, 68
+Exercise  : 0.0   %,		0
+Sweep     : 0.0   %,		0
+Walk      : 86.76 %,		59
+Meal      : 0.0   %,		0
+WashDishes: 0.0   %,		0
+PlayPad   : 0.0   %,		0
+WatchTV   : 0.0   %,		0
+Read      : 0.0   %,		0
+Sleep     : 8.82  %,		6
+Other     : 4.41  %,		3
+
+
+c3, 137
+Exercise  : 0.0   %,		0
+Sweep     : 0.0   %,		0
+Walk      : 0.0   %,		0
+Meal      : 0.0   %,		0
+WashDishes: 0.0   %,		0
+PlayPad   : 97.08 %,		133
+WatchTV   : 0.0   %,		0
+Read      : 0.0   %,		0
+Sleep     : 0.0   %,		0
+Other     : 2.92  %,		4
+
+
+c4, 193
+Exercise  : 0.0   %,		0
+Sweep     : 32.64 %,		63
+Walk      : 0.0   %,		0
+Meal      : 0.0   %,		0
+WashDishes: 0.0   %,		0
+PlayPad   : 2.07  %,		4
+WatchTV   : 0.0   %,		0
+Read      : 65.28 %,		126
+Sleep     : 0.0   %,		0
+Other     : 0.0   %,		0
+
+
+c5, 176
+Exercise  : 2.84  %,		5
+Sweep     : 0.0   %,		0
+Walk      : 0.0   %,		0
+Meal      : 2.84  %,		5
+WashDishes: 94.32 %,		166
+PlayPad   : 0.0   %,		0
+WatchTV   : 0.0   %,		0
+Read      : 0.0   %,		0
+Sleep     : 0.0   %,		0
+Other     : 0.0   %,		0
+
+
+c6, 62
+Exercise  : 0.0   %,		0
+Sweep     : 0.0   %,		0
+Walk      : 0.0   %,		0
+Meal      : 0.0   %,		0
+WashDishes: 0.0   %,		0
+PlayPad   : 0.0   %,		0
+WatchTV   : 0.0   %,		0
+Read      : 100.0 %,		62
+Sleep     : 0.0   %,		0
+Other     : 0.0   %,		0
+
+
+c7, 334
+Exercise  : 34.13 %,		114
+Sweep     : 0.0   %,		0
+Walk      : 0.0   %,		0
+Meal      : 65.87 %,		220
+WashDishes: 0.0   %,		0
+PlayPad   : 0.0   %,		0
+WatchTV   : 0.0   %,		0
+Read      : 0.0   %,		0
+Sleep     : 0.0   %,		0
+Other     : 0.0   %,		0
+
+
+c8, 294
+Exercise  : 0.0   %,		0
+Sweep     : 0.34  %,		1
+Walk      : 0.0   %,		0
+Meal      : 0.0   %,		0
+WashDishes: 0.0   %,		0
+PlayPad   : 0.0   %,		0
+WatchTV   : 0.0   %,		0
+Read      : 0.0   %,		0
+Sleep     : 99.66 %,		293
+Other     : 0.0   %,		0
+
+

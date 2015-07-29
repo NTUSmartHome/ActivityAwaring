@@ -1,0 +1,13 @@
+Activity	Observed Human				Light On/Off				Appliance On/Off					
+	Living room	Studying romm	Bed room	Kitchen	Living room	Studying romm	Bed room	Kitchen	Switch	TV	Lamp	Fan	Microwave	Pad
+WatchT	1	0	0	0	1	0	0	0	0	1	0	0	0	0
+PlayPad	0	1	0	0	0	1	0	0	0	0	0	0	0	1
+GoOut	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+Read Newspaper	1	0	0	0	1	0	0	0	0	0	1	0	0	0
+Sweep	0	1	0	0	0	1	0	0	0	0	0	0	0	0
+Sleep	0	0	1	0	1	0	0	0	0	0	0	0	0	0
+Exercise	1	0	0	0	1	0	0	0	0	0	0	0	0	0
+Read Book	0	1	0	0	0	1	0	0	0	0	0	0	0	0
+PlayPad	0	1	0	0	0	1	0	0	0	0	0	0	0	1
+WashDishes	0	0	0	1	0	0	0	1	0	0	0	0	0	0
+Meal	1	0	0	0	1	0	0	0	0	0	0	0	0	0

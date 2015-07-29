@@ -25,12 +25,12 @@ import elements.FileFormat;
 
 public class ActivityAwareSystem{
 	public static void main(String args[]) {
-		boolean Train= false;
+		boolean Train= true;
 		boolean Online = false;
-		boolean Label = true;
+		boolean Label = false;
 		boolean SVM = false;
-		String Path = "7.08.MingJe_v1";
-		//String Path = "7.08.YaHung_v1";
+		//String Path = "7.08.MingJe_v1";
+		String Path = "7.14.PH_v1";
 		//String Path = "7.07.MingJe_v1";
 		int timewindow = 60;
 		int overlap =55;
