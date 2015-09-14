@@ -11,74 +11,75 @@ import com.datumbox.framework.machinelearning.clustering.GaussianDPMM;
 import com.datumbox.framework.machinelearning.clustering.MultinomialDPMM;
 
 public class MDPMMOnline {
-	MultinomialDPMM Model;
-	String version;
-    String ModelName ="";
-    
+    MultinomialDPMM Model;
+    String version;
+    String ModelName = "";
+
     public MDPMMOnline(String path, String modelName) {
-		version = path;
-	    ModelName = modelName;
-	    lodaModel();
+        version = path;
+        ModelName = modelName;
+        lodaModel();
     }
 
-	public int predict(Vector<Double> feature){
-		MemoryConfiguration memoryConfiguration = new MemoryConfiguration();
-		Dataset Instance = new Dataset();
-		
-		Object[] featureObjects = new Object[feature.size()];
-		for(int i=0; i<feature.size(); i++){
-			featureObjects[i] = feature.get(i);
-		}		
-		Instance.add(Record.newDataVector(featureObjects, "Other"));
-		
-		Model.predict(Instance);
-		Record r = Instance.get(0);
-		
-		int predictId = Integer.valueOf(String.valueOf(r.getYPredicted()));
-		
-		System.out.println("It's predictes as "+predictId);
-		
-		return predictId;
-	}
-	public int predict(Object[] feature){
-		MemoryConfiguration memoryConfiguration = new MemoryConfiguration();
-		Dataset Instance = new Dataset();
-		
-		Instance.add(Record.newDataVector(feature, "Other"));
-		
-		Model.predict(Instance);
-		Record r = Instance.get(0);
-		
-		int predictId = Integer.valueOf(String.valueOf(r.getYPredicted()));
-		
-		System.out.println(Model.getDBname()+" is predictes as "+predictId);
-		
-		return predictId;
-	}
+    public int predict(Vector<Double> feature) {
+        MemoryConfiguration memoryConfiguration = new MemoryConfiguration();
+        Dataset Instance = new Dataset();
 
-	public int getC(){
-		return Model.getModelParameters().getC();
-	}
-	
-	public int getF(){
-		return Model.getModelParameters().getD();
-	}
-	
-	public int getN(){
-		return Model.getModelParameters().getN();
-	}
-	
-	public void lodaModel() {
-	    RandomValue.randomGenerator = new Random(42); 
-	    MemoryConfiguration memoryConfiguration = new MemoryConfiguration();
-	                    
-	    Model = new MultinomialDPMM(ModelName);
-	    //Model.setDBname(ModelName);
-	    String nameString = Model.getDBname();
-	    
-	    
-	    Model.setMemoryConfiguration(memoryConfiguration);
-	    
-	    
-	}
+        Object[] featureObjects = new Object[feature.size()];
+        for (int i = 0; i < feature.size(); i++) {
+            featureObjects[i] = feature.get(i);
+        }
+        Instance.add(Record.newDataVector(featureObjects, "Other"));
+
+        Model.predict(Instance);
+        Record r = Instance.get(0);
+
+        int predictId = Integer.valueOf(String.valueOf(r.getYPredicted()));
+
+        System.out.println("It's predictes as " + predictId);
+
+        return predictId;
+    }
+
+    public int predict(Object[] feature) {
+        MemoryConfiguration memoryConfiguration = new MemoryConfiguration();
+        Dataset Instance = new Dataset();
+
+        Instance.add(Record.newDataVector(feature, "Other"));
+
+        Model.predict(Instance);
+        Record r = Instance.get(0);
+
+        int predictId = Integer.valueOf(String.valueOf(r.getYPredicted()));
+
+        System.out.println(Model.getDBname() + " is predictes as " + predictId);
+
+        return predictId;
+    }
+
+    public int getC() {
+        return Model.getModelParameters().getC();
+    }
+
+    public int getF() {
+        return Model.getModelParameters().getD();
+    }
+
+    public int getN() {
+        return Model.getModelParameters().getN();
+    }
+
+    public void lodaModel() {
+        RandomValue.randomGenerator = new Random(42);
+        MemoryConfiguration memoryConfiguration = new MemoryConfiguration();
+
+        Model = new MultinomialDPMM(ModelName);
+        //Model.setDBname(ModelName);
+        String nameString = Model.getDBname();
+
+
+        Model.setMemoryConfiguration(memoryConfiguration);
+
+
+    }
 }

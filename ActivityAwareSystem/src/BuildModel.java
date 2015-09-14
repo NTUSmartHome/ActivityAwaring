@@ -1,16 +1,12 @@
-import java.io.File;
-
-import wearable.MeaningfulActionFeatureExtration;
-import wearable.NormalizeWearableFeature;
-import wearable.PCAWearableFeatureExtration;
-import wearable.SwingMotionFeatureExtration;
 import TrainingMode.KNNWAModel;
 import TrainingMode.TrainingARModel;
-import adaption.KNNModel;
 import ambient.SimulatedScenario;
-import dpmm.GDPMMTrainAuto;
 import dpmm.MDPMMTrain;
 import elements.FileFormat;
+import wearable.MeaningfulActionFeatureExtration;
+import wearable.SwingMotionFeatureExtration;
+
+import java.io.File;
 
 
 public class BuildModel {

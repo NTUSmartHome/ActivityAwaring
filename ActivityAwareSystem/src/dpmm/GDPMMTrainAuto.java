@@ -24,7 +24,7 @@ public class GDPMMTrainAuto {
     int iter;
     int featureNum = 0;
     double m1;
-    //int alpha_words;
+    //int alphaWords;
 	String filename;
 	String filenameMeanFeature;
 	String filenameProbability;
@@ -43,7 +43,7 @@ public class GDPMMTrainAuto {
 	    iter = iteration;
 	    m1 = mu1;
 	    ModelName = name;
-	    //alpha_words =aw;
+	    //alphaWords =aw;
 	    setFilepath(name);
 	    predict();
     }

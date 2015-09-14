@@ -23,7 +23,7 @@ public class GDPMMTrainD2 {
 	double alpha;
     int iter;
     double m1,m2;
-    //int alpha_words;
+    //int alphaWords;
 	String filename;
 	String filenameProbability;
 	Dataset trainingData;
@@ -38,7 +38,7 @@ public class GDPMMTrainD2 {
 	    m1 = mu1;
 	    m2 = mu2;
 	    ModelName = name;
-	    //alpha_words =aw;
+	    //alphaWords =aw;
 	    setFilepath(name);
 	    testPredict();
     }
@@ -65,7 +65,7 @@ public class GDPMMTrainD2 {
         param.setAlpha(alpha);
         param.setMaxIterations(iter);
         param.setInitializationMethod(BaseDPMM.TrainingParameters.Initialization.ONE_CLUSTER_PER_RECORD);
-        //param.setAlphaWords(alpha_words);
+        //param.setAlphaWords(alphaWords);
         
         param.setKappa0(0);
         param.setNu0(0);
