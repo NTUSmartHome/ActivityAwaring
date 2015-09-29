@@ -1,22 +1,48 @@
-c1, 158
+c1, 148
 Exercise  : 0.0   %,		0
-Sweep     : 3.16  %,		5
+Sweep     : 2.03  %,		3
 Walk      : 0.0   %,		0
 Meal      : 0.0   %,		0
-WashDishes: 2.53  %,		4
+WashDishes: 0.68  %,		1
 PlayPad   : 0.0   %,		0
-WatchTV   : 88.61 %,		140
+WatchTV   : 93.92 %,		139
 Read      : 0.0   %,		0
 Sleep     : 0.0   %,		0
-Other     : 5.7   %,		9
+Other     : 3.38  %,		5
 
 
-c2, 303
-Exercise  : 38.28 %,		116
+c2, 297
+Exercise  : 37.71 %,		112
 Sweep     : 0.0   %,		0
 Walk      : 0.0   %,		0
-Meal      : 61.72 %,		187
+Meal      : 61.28 %,		182
 WashDishes: 0.0   %,		0
+PlayPad   : 0.0   %,		0
+WatchTV   : 1.01  %,		3
+Read      : 0.0   %,		0
+Sleep     : 0.0   %,		0
+Other     : 0.0   %,		0
+
+
+c3, 125
+Exercise  : 0.0   %,		0
+Sweep     : 0.0   %,		0
+Walk      : 0.0   %,		0
+Meal      : 0.0   %,		0
+WashDishes: 0.0   %,		0
+PlayPad   : 0.0   %,		0
+WatchTV   : 0.0   %,		0
+Read      : 0.0   %,		0
+Sleep     : 100.0 %,		125
+Other     : 0.0   %,		0
+
+
+c4, 114
+Exercise  : 4.39  %,		5
+Sweep     : 5.26  %,		6
+Walk      : 0.0   %,		0
+Meal      : 9.65  %,		11
+WashDishes: 80.7  %,		92
 PlayPad   : 0.0   %,		0
 WatchTV   : 0.0   %,		0
 Read      : 0.0   %,		0
@@ -24,7 +50,7 @@ Sleep     : 0.0   %,		0
 Other     : 0.0   %,		0
 
 
-c3, 33
+c5, 33
 Exercise  : 0.0   %,		0
 Sweep     : 0.0   %,		0
 Walk      : 81.82 %,		27
@@ -33,47 +59,21 @@ WashDishes: 0.0   %,		0
 PlayPad   : 0.0   %,		0
 WatchTV   : 0.0   %,		0
 Read      : 0.0   %,		0
-Sleep     : 6.06  %,		2
-Other     : 12.12 %,		4
+Sleep     : 12.12 %,		4
+Other     : 6.06  %,		2
 
 
-c4, 105
-Exercise  : 0.95  %,		1
-Sweep     : 6.67  %,		7
-Walk      : 0.0   %,		0
-Meal      : 5.71  %,		6
-WashDishes: 84.76 %,		89
-PlayPad   : 0.0   %,		0
-WatchTV   : 1.9   %,		2
-Read      : 0.0   %,		0
-Sleep     : 0.0   %,		0
-Other     : 0.0   %,		0
-
-
-c5, 105
+c6, 112
 Exercise  : 0.0   %,		0
 Sweep     : 0.0   %,		0
 Walk      : 0.0   %,		0
 Meal      : 0.0   %,		0
 WashDishes: 0.0   %,		0
-PlayPad   : 99.05 %,		104
+PlayPad   : 93.75 %,		105
 WatchTV   : 0.0   %,		0
 Read      : 0.0   %,		0
 Sleep     : 0.0   %,		0
-Other     : 0.95  %,		1
-
-
-c6, 288
-Exercise  : 0.0   %,		0
-Sweep     : 48.96 %,		141
-Walk      : 0.0   %,		0
-Meal      : 0.0   %,		0
-WashDishes: 0.0   %,		0
-PlayPad   : 0.35  %,		1
-WatchTV   : 0.0   %,		0
-Read      : 50.69 %,		146
-Sleep     : 0.0   %,		0
-Other     : 0.0   %,		0
+Other     : 6.25  %,		7
 
 
 c7, 74
@@ -89,16 +89,16 @@ Sleep     : 0.0   %,		0
 Other     : 0.0   %,		0
 
 
-c8, 127
+c8, 290
 Exercise  : 0.0   %,		0
-Sweep     : 0.0   %,		0
+Sweep     : 49.66 %,		144
 Walk      : 0.0   %,		0
 Meal      : 0.0   %,		0
 WashDishes: 0.0   %,		0
 PlayPad   : 0.0   %,		0
 WatchTV   : 0.0   %,		0
-Read      : 0.0   %,		0
-Sleep     : 100.0 %,		127
+Read      : 50.34 %,		146
+Sleep     : 0.0   %,		0
 Other     : 0.0   %,		0
 
 

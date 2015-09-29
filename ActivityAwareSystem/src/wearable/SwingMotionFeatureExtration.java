@@ -48,9 +48,10 @@ public class SwingMotionFeatureExtration {
     }
 
     public String readRawDataOnline(String[] raw) {
+
         String feature = "";
         //7 parameters are: Label, Gx, Gy, Gz, Y, P, R
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < raw.length; i++) {
             readLineOnline(raw[i]);
         }
 
@@ -301,8 +302,8 @@ public class SwingMotionFeatureExtration {
         } else if (str[0].contains("T")) {
 
         } else if (str[0].contains("A") && !withGravity) {
-            String[] tmp = str[1].split(";");
-            String[] value = tmp[0].split(",");
+            str[1] = str[1].substring(0, str[1].length() - 1);
+            String[] value = str[1].split(",");
             int len = value.length;
             for (int i = 0; i < len; i++) {
                 if (str[0].contains("x")) {
@@ -316,8 +317,8 @@ public class SwingMotionFeatureExtration {
                 }
             }
         } else if (str[0].contains("G") && withGravity) {
-            String[] tmp = str[1].split(";");
-            String[] value = tmp[0].split(",");
+            str[1] = str[1].substring(0, str[1].length() - 1);
+            String[] value = str[1].split(",");
             int len = value.length;
             for (int i = 0; i < len; i++) {
                 if (str[0].contains("x")) {
@@ -329,22 +330,22 @@ public class SwingMotionFeatureExtration {
                 }
             }
         } else if (str[0].contains("Y")) {
-            String[] tmp = str[1].split(";");
-            String[] value = tmp[0].split(",");
+            str[1] = str[1].substring(0, str[1].length() - 1);
+            String[] value = str[1].split(",");
             int len = value.length;
             for (int i = 0; i < len; i++) {
                 O.addA(Double.valueOf(value[i]));
             }
         } else if (str[0].contains("P")) {
-            String[] tmp = str[1].split(";");
-            String[] value = tmp[0].split(",");
+            str[1] = str[1].substring(0, str[1].length() - 1);
+            String[] value = str[1].split(",");
             int len = value.length;
             for (int i = 0; i < len; i++) {
                 O.addP(Double.valueOf(value[i]));
             }
         } else if (str[0].contains("R")) {
-            String[] tmp = str[1].split(";");
-            String[] value = tmp[0].split(",");
+            str[1] = str[1].substring(0, str[1].length() - 1);
+            String[] value = str[1].split(",");
             int len = value.length;
             for (int i = 0; i < len; i++) {
                 O.addR(Double.valueOf(value[i]));

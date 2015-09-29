@@ -85,6 +85,7 @@ public class SocketServer extends java.lang.Thread {
     	isTransmittionRequest = true;
     	while(!isDataReady){
     		try {
+                //System.out.println("sleep");
 				sleep(200);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block

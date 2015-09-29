@@ -13,8 +13,8 @@ import java.util.Vector;
 
 public class ActivityAwareSystem {
     public static void main(String args[]) {
-        boolean Train = true;
-        boolean Online = false;
+        boolean Train = false;
+        boolean Online = true;
         boolean Label = false;
         boolean SVM = false;
         //String Path = "7.08.MingJe_v1";
@@ -32,92 +32,50 @@ public class ActivityAwareSystem {
             SupportVectorMachineTrain SVMModel = new SupportVectorMachineTrain(Path, "SVM");
         }
         if (Online) {
-
             SocketServer server = new SocketServer();
             server.start();
 
-            FileFormat LowAct = new FileFormat(Path, "SwingMotion");
-            //LowAct.setRawdata("05_20_MingJe.txt");
-            FileFormat HighAct = new FileFormat(Path, "MeaningfulAction");
-            //FileFormat AmbientAct = new FileFormat(Path, "Ambient");
-            //FileFormat WAAct = new FileFormat(Path, "WA");
+            FileFormat LowAct = new FileFormat(Path, "DPMM/SwingMotion");
+            FileFormat HighAct = new FileFormat(Path, "DPMM/MeaningfulAction");
 
-            //SimilarityFunction SimilarityFun = new SimilarityFunction(Path, "Cluster_Mean.txt", 20);
+            MDPMMOnline SwingMotionPredict = new MDPMMOnline(Path, LowAct.getResult());
             MDPMMOnline ActionPredict = new MDPMMOnline(Path, HighAct.getResult());
 
             SwingMotionFeatureExtration swingMotionFeatureExtration = new SwingMotionFeatureExtration(true, true);
 
-            //GDPMMOnline WAPredict = new GDPMMOnline(Path, WAAct.getResult());
-            //KNNModel KNN = new KNNModel(Path, 1);
-            //Scanner scanner = new Scanner(System.in);
-
-            //MergeAWFeature MergeAW = new MergeAWFeature(Path, HighAct.getResult() + "_Mean_Cluster.txt");
-
-
-            MDPMMOnline SwingMotionPredict = new MDPMMOnline(Path, LowAct.getResult());
-
-            //int numOfActionFeature = MergeAW.getWF();
+            //  int numOfActionFeature = ActionPredict.getF();
 
             boolean actionPredictFlag = false;
             Vector<Integer> swingMotionOnline = new Vector<Integer>();
 
             int actionResult = 0;
+            //Scanner sc = new Scanner(System.in);
             while (true) {
-                String[] request = server.onRequestData();
+
+                String[] request = //sc.next().split(";");
+                        server.onRequestData();
                 String line = swingMotionFeatureExtration.readRawDataOnline(request);
                 //System.out.println(line);
-
+                //System.out.println("test");
+                // listen smart watch message and extract features
                 String[] feature = line.split(",");
                 Double[] featureDoubles = new Double[feature.length - 1];
                 for (int i = 0; i < featureDoubles.length; i++)
                     featureDoubles[i] = Double.valueOf(feature[i]);
 
+                // reconize input instance
                 int swingMotionResult = SwingMotionPredict.predict(featureDoubles);
+                // add the instance result to the low action list (until fulfill the size to timewindow)
                 swingMotionOnline.add(swingMotionResult);
-
-                System.out.print(swingMotionOnline.size() + "\n");
+                //System.out.print(swingMotionResult + "\n");
 
                 if (swingMotionOnline.size() == timewindow) {
-                    //actionResult = ActionPredict.predict(generateActionFeature(swingMotionOnline, numOfActionFeature));
+                    actionResult = ActionPredict.predict(generateActionFeature(swingMotionOnline, 31));
                     for (int i = 0; i < (timewindow - overlap); i++) {
                         swingMotionOnline.remove(0);
                     }
-                    Double[] ambientFeature = new Double[12];
-                    /*for (int i = 0; i < ambientFeature.length; i++) {
-                        System.out.print("Please input ambient feature " + i + ": ");
-                        ambientFeature[i] = Double.valueOf(scanner.next());
-                    }*/
-
-
-                    String actionFeatureStr = "";
-                    //actionFeatureStr = MergeAW.generateWAActionFeatureOnline(actionResult);
-                    String[] actionFeature = actionFeatureStr.split(",");
-                    Double[] AWFeature = new Double[actionFeature.length + ambientFeature.length];
-                    for (int i = 0; i < AWFeature.length; i++) {
-                        if (i < actionFeature.length) {
-                            AWFeature[i] = Double.valueOf(actionFeature[i]);
-                        } else {
-                            AWFeature[i] = ambientFeature[i - actionFeature.length];
-                        }
-                    }
-
-
-                    /*boolean unseen = SimilarityFun.reasoningUnseen(AWFeature);
-                    if (unseen) {
-                        System.out.println("Unseen instance!\n");
-                    } else {
-                        System.out.println("Seen instance\n");
-                        KNN.predict(AWFeature);
-                        int KNNResult = KNN.getNeareast();
-                        System.out.println("KNN Result is " + KNNResult + "\n");
-                        KNN.clear();
-
-                        int DPMMResult = WAPredict.predict(AWFeature);
-                        System.out.println("DPMM Result is " + DPMMResult);
-                    }*/
-
+                    System.out.println("Activity Id is " + actionResult);
                 }
-
 
             }
 

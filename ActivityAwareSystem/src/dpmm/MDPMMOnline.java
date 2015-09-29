@@ -17,7 +17,7 @@ public class MDPMMOnline {
 
     public MDPMMOnline(String path, String modelName) {
         version = path;
-        ModelName = modelName;
+        ModelName = path + "/" + modelName;
         lodaModel();
     }
 
@@ -47,6 +47,8 @@ public class MDPMMOnline {
 
         Instance.add(Record.newDataVector(feature, "Other"));
 
+        Model.setModelname(ModelName);
+
         Model.predict(Instance);
         Record r = Instance.get(0);
 
@@ -70,8 +72,9 @@ public class MDPMMOnline {
     }
 
     public void lodaModel() {
-        RandomValue.randomGenerator = new Random(42);
         MemoryConfiguration memoryConfiguration = new MemoryConfiguration();
+
+        System.out.println("(load) Model name: "+ModelName);
 
         Model = new MultinomialDPMM(ModelName);
         //Model.setDBname(ModelName);
