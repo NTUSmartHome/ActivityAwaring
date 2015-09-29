@@ -182,7 +182,7 @@ public abstract class BaseMLmodel<MP extends BaseMLmodel.ModelParameters, TP ext
     String Modelname = "";
     public void setModelname(String dataset){
     		Modelname = dataset;
-    		System.out.println("Set model name:"+Modelname);
+    		//System.out.println("Set model name:"+Modelname);
     }
     
     
@@ -259,6 +259,7 @@ public abstract class BaseMLmodel<MP extends BaseMLmodel.ModelParameters, TP ext
         if(GeneralConfiguration.DEBUG) {
             System.out.println("predict()");
         }*/
+        System.out.print("Model name: "+Modelname+"...");
         knowledgeBase.setModelname(Modelname);
         knowledgeBase.load();
         
