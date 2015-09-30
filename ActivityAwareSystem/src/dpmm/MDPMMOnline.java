@@ -36,7 +36,7 @@ public class MDPMMOnline {
 
         int predictId = Integer.valueOf(String.valueOf(r.getYPredicted()));
 
-        System.out.println("It's predictes as " + predictId);
+        //System.out.println("It's predictes as " + predictId);
 
         return predictId;
     }
@@ -54,7 +54,7 @@ public class MDPMMOnline {
 
         int predictId = Integer.valueOf(String.valueOf(r.getYPredicted()));
 
-        System.out.println(Model.getDBname() + " is predictes as " + predictId);
+        //System.out.println(Model.getDBname() + " is predictes as " + predictId);
 
         return predictId;
     }
@@ -74,7 +74,7 @@ public class MDPMMOnline {
     public void lodaModel() {
         MemoryConfiguration memoryConfiguration = new MemoryConfiguration();
 
-        System.out.println("(load) Model name: "+ModelName);
+        //System.out.println("(load) Model name: "+ModelName);
 
         Model = new MultinomialDPMM(ModelName);
         //Model.setDBname(ModelName);

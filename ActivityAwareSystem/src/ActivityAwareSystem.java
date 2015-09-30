@@ -2,11 +2,17 @@ import GUI.LabelingScreen;
 import adaption.KNNModel;
 import adaption.SimilarityFunction;
 import com.datumbox.framework.machinelearning.classification.SupportVectorMachineTrain;
+import com.sun.media.jfxmedia.MediaManager;
 import dpmm.GDPMMOnline;
 import dpmm.MDPMMOnline;
 import elements.FileFormat;
+import jaco.mp3.player.MP3Player;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import wearable.SwingMotionFeatureExtration;
 
+import java.applet.AudioClip;
+import java.io.File;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -18,15 +24,15 @@ public class ActivityAwareSystem {
         boolean Label = false;
         boolean SVM = false;
         //String Path = "7.08.MingJe_v1";
-        String Path = "7.14.PH_v1";
+        String Path = "DEMO";
         //String Path = "7.07.MingJe_v1";
-        int timewindow = 60;
-        int overlap = 55;
+        int timewindow = 5;
+        int overlap = 0;
         if (Train) {
             new BuildModel(Path, timewindow, overlap);
         }
         if (Label) {
-            new LabelingScreen(Path, "WA", 0);
+            new LabelingScreen(Path, "MeaningfulAction", 0);
         }
         if (SVM) {
             SupportVectorMachineTrain SVMModel = new SupportVectorMachineTrain(Path, "SVM");
@@ -50,8 +56,17 @@ public class ActivityAwareSystem {
 
             int actionResult = 0;
             //Scanner sc = new Scanner(System.in);
+
+
+            // SOUND
+            MP3Player[] sound = new MP3Player[4];
+            sound[0] = new MP3Player(new File("sound/EXERCISE.mp3"));
+            sound[1] = new MP3Player(new File("sound/WALKING.mp3"));
+            sound[2] = new MP3Player(new File("sound/SWEEPING.mp3"));
+            sound[3] = new MP3Player(new File("sound/FALLING.mp3"));
             while (true) {
 
+                //sound[2].play();
                 String[] request = //sc.next().split(";");
                         server.onRequestData();
                 String line = swingMotionFeatureExtration.readRawDataOnline(request);
@@ -70,9 +85,29 @@ public class ActivityAwareSystem {
                 //System.out.print(swingMotionResult + "\n");
 
                 if (swingMotionOnline.size() == timewindow) {
-                    actionResult = ActionPredict.predict(generateActionFeature(swingMotionOnline, 31));
+                    actionResult = ActionPredict.predict(generateActionFeature(swingMotionOnline, SwingMotionPredict.getC()));
                     for (int i = 0; i < (timewindow - overlap); i++) {
                         swingMotionOnline.remove(0);
+                    }
+                    switch (actionResult){
+                        case 0: System.out.println("Exercise");
+                            sound[0].play();
+                            break;
+                        case 1: System.out.println("Exercise");
+                            sound[0].play();
+                            break;
+                        case 2: System.out.println("Sweep");
+                            sound[2].play();
+                            break;
+                        case 6: System.out.println("Falling");
+                            sound[3].play();
+                            break;
+                        case 3: System.out.println("Walk");
+                            sound[1].play();
+                            break;
+                        default:
+                            break;
+
                     }
                     System.out.println("Activity Id is " + actionResult);
                 }

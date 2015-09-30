@@ -14,7 +14,7 @@ public class BuildModel {
 		FileFormat LowAct  = new FileFormat(Path,"SwingMotion");
 		//LowAct.setRawdata("07_08_MingJe.txt");
 		//LowAct.setRawdata("07_07_MingJe.txt");
-		LowAct.setRawdata("07_14_PH.txt");
+		LowAct.setRawdata("DEMO.txt");
 		FileFormat HighAct = new FileFormat(Path,"MeaningfulAction");
 		FileFormat AmbientAct = new FileFormat(Path,"Ambient");
 		FileFormat WAAct = new FileFormat(Path,"WA");
@@ -34,7 +34,7 @@ public class BuildModel {
 		new Report(Path,HighAct.getResult(),HighAct.getReport());
 		 
 		/* Generate Offline (for training) Ambient Features*/
-		new SimulatedScenario(Path, HighAct.getResult());
+		//new SimulatedScenario(Path, HighAct.getResult());
 	
 		/* Build Ambient + Wearable Model*/
 		/*	
@@ -43,11 +43,12 @@ public class BuildModel {
 		 * new Report(Path,WAAct.getResult(),WAAct.getReport());
 		 * */
 		
-		
+		/*
 		new TrainingARModel(Path, HighAct.getResult(), AmbientAct.getFeature(), 0.012);
 		new ReportForRuleClustering(Path,AmbientAct.getResult(),AmbientAct.getReport());
 		new KNNWAModel(Path, HighAct.getFeature(), AmbientAct.getResult(), "WAOrdinaryResult", 7, timewindow, overlap);
 		new ReportForRuleClustering(Path,WAAct.getResult(),WAAct.getReport());
+		*/
 	}
 	
 	
