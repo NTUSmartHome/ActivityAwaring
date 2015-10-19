@@ -14,7 +14,7 @@ public class BuildModel {
 		FileFormat LowAct  = new FileFormat(Path,"SwingMotion");
 		//LowAct.setRawdata("07_08_MingJe.txt");
 		//LowAct.setRawdata("07_07_MingJe.txt");
-		LowAct.setRawdata("DEMO.txt");
+		LowAct.setRawdata("1021DEMO.txt");
 		FileFormat HighAct = new FileFormat(Path,"MeaningfulAction");
 		FileFormat AmbientAct = new FileFormat(Path,"Ambient");
 		FileFormat WAAct = new FileFormat(Path,"WA");
@@ -24,13 +24,13 @@ public class BuildModel {
 		new File(Path+"/Features").mkdirs();
 		LowAct.deletFile("Features/SwingMotionFeature.txt");
 		new SwingMotionFeatureExtration(Path,LowAct.getRawdata(),LowAct.getFeature(), true, true);
-		new MDPMMTrain(Path,LowAct.getName(),1,5,100);
+		new MDPMMTrain(Path,LowAct.getName(),0.5,1,100);
 		new Report(Path,LowAct.getResult(),LowAct.getReport());
 		new MeaningfulActionFeatureExtration(Path,LowAct.getResult(),HighAct.getFeature(), timewindow, overlap);	
 		 
 		/* Build Meaningful Action Model*/
 		
-		new MDPMMTrain(Path,HighAct.getName(),1,5,100);
+		new MDPMMTrain(Path,HighAct.getName(),1,2,100);
 		new Report(Path,HighAct.getResult(),HighAct.getReport());
 		 
 		/* Generate Offline (for training) Ambient Features*/

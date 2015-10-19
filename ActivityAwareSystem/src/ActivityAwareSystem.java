@@ -26,8 +26,8 @@ public class ActivityAwareSystem {
         //String Path = "7.08.MingJe_v1";
         String Path = "DEMO";
         //String Path = "7.07.MingJe_v1";
-        int timewindow = 5;
-        int overlap = 0;
+        int timewindow = 10;
+        int overlap = 5;
         if (Train) {
             new BuildModel(Path, timewindow, overlap);
         }
@@ -54,7 +54,8 @@ public class ActivityAwareSystem {
             boolean actionPredictFlag = false;
             Vector<Integer> swingMotionOnline = new Vector<Integer>();
 
-            int actionResult = 0;
+            int actionResult = -1;
+            int preActionResult = -1;
             //Scanner sc = new Scanner(System.in);
 
 
@@ -70,6 +71,7 @@ public class ActivityAwareSystem {
                 String[] request = //sc.next().split(";");
                         server.onRequestData();
                 String line = swingMotionFeatureExtration.readRawDataOnline(request);
+                System.out.print(line + "\n");
                 //System.out.println(line);
                 //System.out.println("test");
                 // listen smart watch message and extract features
@@ -80,35 +82,57 @@ public class ActivityAwareSystem {
 
                 // reconize input instance
                 int swingMotionResult = SwingMotionPredict.predict(featureDoubles);
+
                 // add the instance result to the low action list (until fulfill the size to timewindow)
                 swingMotionOnline.add(swingMotionResult);
-                //System.out.print(swingMotionResult + "\n");
+
 
                 if (swingMotionOnline.size() == timewindow) {
                     actionResult = ActionPredict.predict(generateActionFeature(swingMotionOnline, SwingMotionPredict.getC()));
                     for (int i = 0; i < (timewindow - overlap); i++) {
                         swingMotionOnline.remove(0);
                     }
-                    switch (actionResult){
-                        case 0: System.out.println("Exercise");
-                            sound[0].play();
-                            break;
-                        case 1: System.out.println("Exercise");
-                            sound[0].play();
-                            break;
-                        case 2: System.out.println("Sweep");
-                            sound[2].play();
-                            break;
-                        case 6: System.out.println("Falling");
-                            sound[3].play();
-                            break;
-                        case 3: System.out.println("Walk");
-                            sound[1].play();
-                            break;
-                        default:
-                            break;
+                    if(preActionResult != actionResult) {
+                        switch(actionResult) {
+                            case 0:
+                                System.out.println("Exercise");
+                                sound[0].play();
+                                break;
+                            case 2:
+                                System.out.println("WearShoes");
+                                sound[3].play();
+                                break;
+                            case 3:
+                                System.out.println("Walk");
+                                sound[1].play();
+                                break;
 
+                        }
+                       // ¤W¦¸DEMO
+                        /*switch (actionResult){
+                            case 0: System.out.println("Exercise");
+                                sound[0].play();
+                                break;
+                            case 1: System.out.println("Exercise");
+                                sound[0].play();
+                                break;
+                            case 2: System.out.println("Sweep");
+                                sound[2].play();
+                                break;
+                            case 6: System.out.println("Falling");
+                                sound[3].play();
+                                break;
+                            case 3: System.out.println("Walk");
+                                sound[1].play();
+                                break;
+                            default:
+                                break;
+
+                        }*/
+                    } else {
+                        preActionResult = actionResult;
                     }
+
                     System.out.println("Activity Id is " + actionResult);
                 }
 
