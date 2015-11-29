@@ -43,7 +43,7 @@ public class MDPMMTrain {
         this.alpha = alpha;
         iter = iteration;
         this.alphaWords = alphaWords;
-        modelName = name;
+        modelName = path +"/DPMM/" + name + "Result";
         setFilepath(name);
         predict();
     }

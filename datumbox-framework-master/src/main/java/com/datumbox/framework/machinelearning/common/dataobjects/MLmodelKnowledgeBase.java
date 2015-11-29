@@ -17,17 +17,18 @@
 package com.datumbox.framework.machinelearning.common.dataobjects;
 
 import com.datumbox.framework.machinelearning.common.bases.mlmodels.BaseMLmodel;
+
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * The knowledgeBase represents the "database" that the algorithm learned. 
+ * The knowledgeBase represents the "database" that the algorithm learned.
  * It is a wrapper of the 3 classes of model & training parameters and validation metrics.
  * This object is imported and exported every time we use or train an algorithm.
- * 
- * @author Vasilis Vryniotis <bbriniotis at datumbox.com>
+ *
  * @param <MP>
  * @param <TP>
  * @param <VM>
+ * @author Vasilis Vryniotis <bbriniotis at datumbox.com>
  */
 public final class MLmodelKnowledgeBase<MP extends BaseMLmodel.ModelParameters, TP extends BaseMLmodel.TrainingParameters, VM extends BaseMLmodel.ValidationMetrics> extends TrainableKnowledgeBase<MP, TP> {
 
@@ -35,9 +36,9 @@ public final class MLmodelKnowledgeBase<MP extends BaseMLmodel.ModelParameters, 
         VARIABLES
         =========
     */
-    
+
     protected Class<VM> vmClass;
-    
+
     private VM validationMetrics;
     
     
@@ -46,72 +47,73 @@ public final class MLmodelKnowledgeBase<MP extends BaseMLmodel.ModelParameters, 
         EXTENDING ABSTRACT
         ==================
     */
-    
-    
+
+
     protected MLmodelKnowledgeBase() {
         super();
         //constructor only used in serialization/deserialization
     }
-    
+
     public MLmodelKnowledgeBase(String dbName, Class<MP> mpClass, Class<TP> tpClass, Class<VM> vmClass) {
         super(dbName, mpClass, tpClass);
         this.vmClass = vmClass;
     }
-    
+
     String Modelname = "";
-    public void setModelname(String dataset){
-    		Modelname = dataset;
+
+    public void setModelname(String dataset) {
+        Modelname = dataset;
     }
-    
+
     /**
      * Loads a BaseMLmodelKnowledgeBase
      */
     @Override
     public void load() {
-        if(trainingParameters==null) {
-        		bdsf.setModelname(Modelname);
+        if (trainingParameters == null) {
+            bdsf.setModelname(Modelname);
             MLmodelKnowledgeBase kbObject = bdsf.load(MLmodelKnowledgeBase.class);
-            if(kbObject==null) {
+            if (kbObject == null) {
                 throw new IllegalArgumentException("The KnowledgeBase could not be loaded.");
             }
-            
+
             id = kbObject.id;
-            
+
             mpClass = kbObject.mpClass;
             tpClass = kbObject.tpClass;
             vmClass = kbObject.vmClass;
-            
-            modelParameters = (MP) kbObject.modelParameters; 
+
+            modelParameters = (MP) kbObject.modelParameters;
             trainingParameters = (TP) kbObject.trainingParameters;
             validationMetrics = (VM) kbObject.validationMetrics;
-            
+
             bdsf.postLoad(modelParameters, memoryConfiguration);
-            
+
             setTrained(true);
         }
     }
-    
-    
+
+
     @Override
     public boolean isConfigured() {
-        if(super.isConfigured()==false) {
+        if (super.isConfigured() == false) {
             return false;
         }
-        
-        if(validationMetrics == null) {
+
+        if (validationMetrics == null) {
             return false;
         }
-        
+
         return true;
     }
-    
+
     @Override
     public void erase(boolean complete) {
         super.erase(complete);
-        
+
         validationMetrics = null;
     }
-    
+
     /**
      * Erases the data from BaseMLmodelKnowledgeBase and from permanent storage
      */
@@ -131,19 +133,19 @@ public final class MLmodelKnowledgeBase<MP extends BaseMLmodel.ModelParameters, 
 
     /**
      * Returns an empty ValidationMetrics Object
-     * @return 
+     *
+     * @return
      */
     public VM getEmptyValidationMetricsObject() {
         //There is already an object set, call its getEmptyObjec() method to generate one
-        if(validationMetrics!=null) {
+        if (validationMetrics != null) {
             return (VM) validationMetrics.getEmptyObject();
         }
-        
+
         //else try using reflections
         try {
             return vmClass.getConstructor().newInstance();
-        } 
-        catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException ex) {
+        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException ex) {
             throw new RuntimeException(ex);
         }
     }
@@ -162,5 +164,5 @@ public final class MLmodelKnowledgeBase<MP extends BaseMLmodel.ModelParameters, 
     public void setValidationMetrics(VM validationMetrics) {
         this.validationMetrics = validationMetrics;
     }
-    
+
 }
